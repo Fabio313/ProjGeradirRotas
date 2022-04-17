@@ -149,6 +149,12 @@ namespace MVCControleRotas.Controllers
         {
             var cidade = await ConsultaService.GetIdCidades(id);
             ConsultaService.DeleteCidades(id);
+            foreach(Equipe equipe in await ConsultaService.GetEquipesCidades(id))
+            {
+                ConsultaService.UpdateEquipes(equipe.Id, new Equipe(){Id = equipe.Id,
+                                                                      Nome = equipe.Nome,
+                                                                      Cidade = null});
+            }
             return RedirectToAction(nameof(Index));
         }
 

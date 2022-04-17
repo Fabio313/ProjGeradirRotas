@@ -22,6 +22,9 @@ namespace APIPessoa.Services
         public List<Pessoa> GetDisponiveis()=>
             _pessoa.Find(person => person.Equipe == null).ToList();
 
+        public List<Pessoa> GetPessoasTime(string idtime) =>
+            _pessoa.Find(person => person.Equipe.Id == idtime).ToList();
+
         public Pessoa Get(string id) =>
             _pessoa.Find<Pessoa>(cliente => cliente.Id == id).FirstOrDefault();
 

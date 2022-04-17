@@ -34,6 +34,19 @@ namespace APIEquipe.Controllers
             return cliente;
         }
 
+        [HttpGet("EquipesCidade")]
+        public ActionResult<List<Equipe>> GetEquipesCidade(string idcidade)
+        {
+            var cliente = _equipeService.GetEquipesCidade(idcidade);
+
+            if (cliente == null)
+            {
+                return NotFound();
+            }
+
+            return cliente;
+        }
+
         [HttpPost]
         public IActionResult CreateAsync(Equipe pessoa)
         {

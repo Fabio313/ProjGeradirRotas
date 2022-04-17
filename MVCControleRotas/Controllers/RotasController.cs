@@ -11,22 +11,22 @@ using Model.Services;
 
 namespace MVCControleRotas.Controllers
 {
-    public class EquipesController : Controller
+    public class RotasController : Controller
     {
         private readonly MVCControleRotasContext _context;
 
-        public EquipesController(MVCControleRotasContext context)
+        public RotasController(MVCControleRotasContext context)
         {
             _context = context;
         }
 
-        // GET: Equipes
+        // GET: Rotas
         public async Task<IActionResult> Index()
         {
-            return View(await ConsultaService.GetEquipes());
+            return View(LeitorArquivos.ReadExcel().OrderBy(rota=>rota.Cep));
         }
 
-        // GET: Equipes/Details/5
+        // GET: Rotas/Details/5
         public async Task<IActionResult> Details(string id)
         {
             if (id == null)
@@ -34,48 +34,46 @@ namespace MVCControleRotas.Controllers
                 return NotFound();
             }
 
-            var equipe = await ConsultaService.GetIdEquipe(id);
-            if (equipe == null)
+            var rotas = await _context.Rotas
+                .FirstOrDefaultAsync(m => m.Data == id);
+            if (rotas == null)
             {
                 return NotFound();
             }
 
-            return View(equipe);
+            return View(rotas);
         }
 
-        // GET: Equipes/Create
+        // GET: Rotas/Create
         public IActionResult Create()
         {
             return View();
         }
 
-        // POST: Equipes/Create
+        // POST: Rotas/Create
         // To protect from overposting attacks, enable the specific properties you want to bind to.
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,Nome")] Equipe equipe)
+        public async Task<IActionResult> Create([Bind("Data,Stats,Auditado,CopReverteu,Log,Pdf,Foto,Contrato,Wo,Os,Assinante,Tecnicos,Login,Matricula,Cop,UltimoAlterar,Local,PontoCasaApt,Cidade,Base,Horario,Segmento,Servico,TipoServico,TipoOs,GrupoServico,Endereco,Numero,Complemento,Cep,Node,Bairro,Pacote,Cod,Telefone1,Telefone2,Obs,ObsTecnico,Equipamento")] Rotas rotas)
         {
-            var teste = Request.Form["pessoa"].ToList();
-            
+            var teste = Request.Form["equipesRota"].ToList();
             if (ModelState.IsValid)
             {
-                ConsultaService.CreateEquipe(equipe);
-                foreach (var pessoa in teste)
+                List<Equipe> equipes = new();
+                foreach(var equipe in teste)
                 {
-                    var pessoaobj = await ConsultaService.GetIdPessoa(pessoa);
-                    if (pessoaobj != null)
-                        ConsultaService.UpdatePessoas(pessoa, new Pessoa() { Id = pessoaobj.Id,
-                                                                             Nome = pessoaobj.Nome, 
-                                                                             Equipe = equipe });
+                    equipes.Add(await ConsultaService.GetIdEquipe(equipe));
                 }
+                List<Rotas> AllRotas = LeitorArquivos.ReadExcel();
+                EscritorArquivos.EscreveDocx(equipes,(List<Rotas>)AllRotas.OrderBy(rota => rota.Cep));
 
                 return RedirectToAction(nameof(Index));
             }
-            return View(equipe);
+            return View(rotas);
         }
 
-        // GET: Equipes/Edit/5
+        // GET: Rotas/Edit/5
         public async Task<IActionResult> Edit(string id)
         {
             if (id == null)
@@ -83,22 +81,22 @@ namespace MVCControleRotas.Controllers
                 return NotFound();
             }
 
-            var equipe = await ConsultaService.GetIdEquipe(id);
-            if (equipe == null)
+            var rotas = await _context.Rotas.FindAsync(id);
+            if (rotas == null)
             {
                 return NotFound();
             }
-            return View(equipe);
+            return View(rotas);
         }
 
-        // POST: Equipes/Edit/5
+        // POST: Rotas/Edit/5
         // To protect from overposting attacks, enable the specific properties you want to bind to.
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(string id, [Bind("Id,Nome")] Equipe equipe)
+        public async Task<IActionResult> Edit(string id, [Bind("Data,Stats,Auditado,CopReverteu,Log,Pdf,Foto,Contrato,Wo,Os,Assinante,Tecnicos,Login,Matricula,Cop,UltimoAlterar,Local,PontoCasaApt,Cidade,Base,Horario,Segmento,Servico,TipoServico,TipoOs,GrupoServico,Endereco,Numero,Complemento,Cep,Node,Bairro,Pacote,Cod,Telefone1,Telefone2,Obs,ObsTecnico,Equipamento")] Rotas rotas)
         {
-            if (id != equipe.Id)
+            if (id != rotas.Data)
             {
                 return NotFound();
             }
@@ -107,11 +105,12 @@ namespace MVCControleRotas.Controllers
             {
                 try
                 {
-                    ConsultaService.UpdateEquipes(id,equipe);
+                    _context.Update(rotas);
+                    await _context.SaveChangesAsync();
                 }
                 catch (DbUpdateConcurrencyException)
                 {
-                    if (!EquipeExists(equipe.Id))
+                    if (!RotasExists(rotas.Data))
                     {
                         return NotFound();
                     }
@@ -122,10 +121,10 @@ namespace MVCControleRotas.Controllers
                 }
                 return RedirectToAction(nameof(Index));
             }
-            return View(equipe);
+            return View(rotas);
         }
 
-        // GET: Equipes/Delete/5
+        // GET: Rotas/Delete/5
         public async Task<IActionResult> Delete(string id)
         {
             if (id == null)
@@ -133,34 +132,30 @@ namespace MVCControleRotas.Controllers
                 return NotFound();
             }
 
-            var equipe = await ConsultaService.GetIdEquipe(id);
-            if (equipe == null)
+            var rotas = await _context.Rotas
+                .FirstOrDefaultAsync(m => m.Data == id);
+            if (rotas == null)
             {
                 return NotFound();
             }
 
-            return View(equipe);
+            return View(rotas);
         }
 
-        // POST: Equipes/Delete/5
+        // POST: Rotas/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(string id)
         {
-            var equipe = await ConsultaService.GetIdEquipe(id);
-            ConsultaService.DeleteEquipes(id);
-            foreach(Pessoa pessoa in await ConsultaService.GetPessoasTime(id))
-            {
-                ConsultaService.UpdatePessoas(pessoa.Id,new Pessoa() { Id=pessoa.Id,
-                                                                       Nome=pessoa.Nome,
-                                                                       Equipe=null});
-            }
+            var rotas = await _context.Rotas.FindAsync(id);
+            _context.Rotas.Remove(rotas);
+            await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
         }
 
-        private bool EquipeExists(string id)
+        private bool RotasExists(string id)
         {
-            return _context.Equipe.Any(e => e.Id == id);
+            return _context.Rotas.Any(e => e.Data == id);
         }
     }
 }

@@ -22,6 +22,9 @@ namespace APIEquipe.Services
         public Equipe Get(string id) =>
             _equipe.Find<Equipe>(cliente => cliente.Id == id).FirstOrDefault();
 
+        public List<Equipe> GetEquipesCidade(string idcidade) =>
+            _equipe.Find(person => person.Cidade.Id == idcidade).ToList();
+
         public Equipe Create(Equipe cliente)
         {
             _equipe.InsertOne(cliente);

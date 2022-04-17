@@ -1,0 +1,39 @@
+﻿@using Model
+@using Model.Services
+@model Model.Rotas
+
+@{
+    ViewData["Title"] = "Create";
+}
+
+<h1>Create</h1>
+
+<h4>Rotas</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="Create">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                @foreach(Equipe equipe in await ConsultaService.GetEquipes())
+                {
+                    <div class="checkbox">
+                    <input type="checkbox" id="equipesRota" name="equipesRota" value="@equipe.Id">
+                    <label> @equipe.Nome </label><br>
+                    </div>
+                }
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Create" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-action="Index">Back to List</a>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

@@ -48,6 +48,19 @@ namespace APIPessoa.Controllers
             return cliente;
         }
 
+        [HttpGet("PessoasTime")]
+        public ActionResult<List<Pessoa>> GetPessoasTime(string idtime)
+        {
+            var cliente = _pessoaService.GetPessoasTime(idtime);
+
+            if (cliente == null)
+            {
+                return NotFound();
+            }
+
+            return cliente;
+        }
+
         [HttpPost]
         public IActionResult CreateAsync(Pessoa pessoa)
         {

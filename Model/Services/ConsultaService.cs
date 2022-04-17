@@ -59,6 +59,14 @@ namespace Model.Services
                 return null;
             return passageiro;
         }
+        public static async Task<List<Pessoa>> GetPessoasTime(string idtime)
+        {
+            GetRestposta = await APIConnection.GetAsync("https://localhost:44358/api/Pessoas/PessoasTime?idtime="+idtime);
+            var passageiro = JsonConvert.DeserializeObject<List<Pessoa>>(await GetRestposta.Content.ReadAsStringAsync());
+            if (passageiro == null)
+                return null;
+            return passageiro;
+        }
         public static async Task<Pessoa> GetIdPessoa(string id)
         {
             GetRestposta = await APIConnection.GetAsync("https://localhost:44358/api/Pessoas/" + id);
@@ -96,6 +104,15 @@ namespace Model.Services
                 return null;
             return passageiro;
         }
+        public static async Task<List<Equipe>> GetEquipesCidades(string id)
+        {
+            GetRestposta = await APIConnection.GetAsync("https://localhost:44341/api/Equipes/EquipesCidade?idcidade=" + id);
+            var passageiro = JsonConvert.DeserializeObject<List<Equipe>>(await GetRestposta.Content.ReadAsStringAsync());
+            if (passageiro == null)
+                return null;
+            return passageiro;
+        }
+        
         public static void UpdateEquipes(string id, Equipe equipe)
         {
             APIConnection.PutAsJsonAsync("https://localhost:44341/api/Equipes/" + id, equipe);
