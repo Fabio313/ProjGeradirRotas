@@ -19,6 +19,7 @@
                 <input asp-for="Nome" class="form-control" />
                 <span asp-validation-for="Nome" class="text-danger"></span>
             </div>
+            <label>Pessoas Disponiveis</label>
             <div class="form-group">
                 @foreach(Pessoa pessoa in await ConsultaService.GetPessoasDisponiveis())
                 {

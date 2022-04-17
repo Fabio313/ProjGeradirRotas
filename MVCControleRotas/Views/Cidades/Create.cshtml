@@ -24,6 +24,7 @@
                 <input asp-for="UF" class="form-control" />
                 <span asp-validation-for="UF" class="text-danger"></span>
             </div>
+            <label>Pessoas Disponiveis</label>
             <div class="form-group">
                 @foreach(Equipe equipe in await ConsultaService.GetEquipes())
                 {
