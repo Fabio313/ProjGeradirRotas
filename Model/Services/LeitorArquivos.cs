@@ -24,7 +24,7 @@ namespace Model.Services
                 ExcelWorksheet worksheet = package.Workbook.Worksheets[0];
                 int colCount = worksheet.Dimension.End.Column;
                 int rowCount = worksheet.Dimension.End.Row;
-                for (int row = 1; row <= rowCount; row++)
+                for (int row = 2; row <= rowCount; row++)
                 {
                     var rota = new Rotas();
 
