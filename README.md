@@ -1,22 +1,22 @@
 <h1>Como utilizar</h1><br><br>
-O projeto foi feito em mongo db então tenha um servidor rodando com a porta padrão para utilização.
+-O projeto foi feito em mongo db então tenha um servidor rodando com a porta padrão para utilização.
 <br>
-Antes de começar va dentro do projeto na biblioteca de classes "Model", entre na pasta "Service",
+-Antes de começar va dentro do projeto na biblioteca de classes "Model", entre na pasta "Service",
 <br>
 na classe "LeitorArquivos" alterar o caminho do arquivo xlsx que sera lido.
 <br>
-Certifique-se de que o arquivo excel não contem linha residuais, todas as linhas que nao forem utilizadas devem ser apagadas<br>
+-Certifique-se de que o arquivo excel não contem linha residuais, todas as linhas que nao forem utilizadas devem ser apagadas<br>
 pois caso o sistema recebe uma linha vazia ira quebrar, assim como qualquer celula não pode ter um conteudo vazio, caso não tenha informação<br>
 coloque um "-" ou um espaço vazio(" ").
 <br>
 <br>
-No momento de cadastro de uma cidade voce escolhe os times que estarão nela,
+-No momento de cadastro de uma cidade voce escolhe os times que estarão nela,
 <br>
 assim como no momento de cadastro de equipe voce escolhera as pessoas que estarão nessa equipe
 <br>
-Logo deve ser cadastrado na ordem Pessoas => Equipes => Cidades
+-Logo deve ser cadastrado na ordem Pessoas => Equipes => Cidades
 <br>
-Durante o primeiro cadastro devido a ser a primeira conexão pode demorar para aparecer o que foi cadastrado na tela principal,<br>
+-Durante o primeiro cadastro devido a ser a primeira conexão pode demorar para aparecer o que foi cadastrado na tela principal,<br>
 por isso recarregue a pagina em questão.<br><br>
 
 <h2>Não feito</h2>
