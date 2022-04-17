@@ -6,7 +6,7 @@
 na classe "LeitorArquivos" alterar o caminho do arquivo xlsx que sera lido.
 <br>
 -Certifique-se de que o arquivo excel não contem linha residuais, todas as linhas que nao forem utilizadas devem ser apagadas<br>
-pois caso o sistema recebe uma linha vazia ira quebrar, assim como qualquer celula não pode ter um conteudo vazio, caso não tenha informação<br>
+pois caso o sistema recebe uma linha vazia ira quebrar, assim como qualquer celula não pode ter um conteudo vazio, caso não tenha informação
 coloque um "-" ou um espaço vazio(" ").
 <br>
 <br>
