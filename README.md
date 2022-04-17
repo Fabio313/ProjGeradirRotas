@@ -21,7 +21,7 @@ por isso recarregue a pagina em questão.<br><br>
 
 <h2>Não feito</h2>
 <br>
-O nome das colunas não é dinamicamente feito(feito com base a primeira linha do excel) por isso caso o nome da 
+-O nome das colunas não é dinamicamente feito(feito com base a primeira linha do excel) por isso caso o nome da 
 <br>
 coluna for mudado ele continuara funcionando porem no frontend mostra-ra o nome antido da coluna
 <br>
