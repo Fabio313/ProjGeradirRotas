@@ -107,6 +107,8 @@ namespace MVCControleRotas.Controllers
             {
                 try
                 {
+                    var equipebusca = await ConsultaService.GetIdEquipe(id);
+                    equipe.Cidade = equipebusca.Cidade;
                     ConsultaService.UpdateEquipes(id,equipe);
                 }
                 catch (DbUpdateConcurrencyException)

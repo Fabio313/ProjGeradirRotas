@@ -16,6 +16,7 @@ namespace Model.Services
         public static List<Rotas> ReadExcel()
         {
             var rotas = new List<Rotas>();
+            //COLOCAR O DIRETORIO DO ARQUIVO
             FileInfo arquivoExiste = new(@"C:\Users\Fabio Z Ferrenha\Desktop\Atividades\GeradorDeRotas\Rotas.xlsx");
             ExcelPackage.LicenseContext = LicenseContext.NonCommercial;
             using (ExcelPackage package = new(arquivoExiste))

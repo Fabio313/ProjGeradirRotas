@@ -66,7 +66,7 @@ namespace MVCControleRotas.Controllers
                     equipes.Add(await ConsultaService.GetIdEquipe(equipe));
                 }
                 List<Rotas> AllRotas = LeitorArquivos.ReadExcel();
-                EscritorArquivos.EscreveDocx(equipes,(List<Rotas>)AllRotas.OrderBy(rota => rota.Cep));
+                EscritorArquivos.EscreveDocx(equipes,AllRotas.OrderBy(rota => rota.Cep).ToList());
 
                 return RedirectToAction(nameof(Index));
             }
