@@ -18,6 +18,9 @@ assim como no momento de cadastro de equipe voce escolhera as pessoas que estar�
 <br>
 -Durante o primeiro cadastro devido a ser a primeira conexão pode demorar para aparecer o que foi cadastrado na tela principal,<br>
 por isso recarregue a pagina em questão.<br><br>
+-Para gerar as rotas entre na janela de "Rotas", que mostra-ra todo o arquivo xlsx lido, então clique para escolher as equipes encarregadas, 
+<br>
+selecione as equipes e clique em criar, o arquivo sera gerado na pasta do sistema.
 
 <h2>Não feito</h2>
 <br>
