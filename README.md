@@ -5,8 +5,8 @@
 <br>
 na classe "LeitorArquivos" alterar o caminho do arquivo xlsx que sera lido.
 <br>
--Certifique-se de que o arquivo excel não contem linha residuais, todas as linhas que nao forem utilizadas devem ser apagadas<br>
-pois caso o sistema recebe uma linha vazia ira quebrar, assim como qualquer celula não pode ter um conteudo vazio, caso não tenha informação
+-Certifique-se de que o arquivo excel não contem linha residuais, todas as linhas que nao forem utilizadas devem ser apagadas(não deixadas em branco mas sim deletadas)<br>
+pois caso o sistema receba uma linha vazia ira quebrar, assim como qualquer celula não pode ter um conteudo vazio, caso não tenha informação
 coloque um "-" ou um espaço vazio(" ").
 <br>
 <br>
@@ -18,8 +18,15 @@ assim como no momento de cadastro de equipe voce escolhera as pessoas que estar�
 <br>
 -Durante o primeiro cadastro devido a ser a primeira conexão pode demorar para aparecer o que foi cadastrado na tela principal,<br>
 por isso recarregue a pagina em questão.<br><br>
+-Para gerar as rotas entre na janela de "Rotas", que mostra-ra todo o arquivo xlsx lido, então clique para escolher as equipes encarregadas, 
+<br>
+selecione as equipes e clique em criar, o arquivo sera gerado na pasta do sistema.
 
 <h2>Não feito</h2>
+<br>
+-O nome das colunas não é dinamicamente feito(feito com base a primeira linha do excel) por isso caso o nome da 
+<br>
+coluna for mudado ele continuara funcionando porem no frontend mostra-ra o nome antido da coluna
 <br>
 -Não é possivel escolher quais colunas serão salvas no arquivo, o arquivo vira como padrão com as informações obrigatorias(OS,BASE,SERVIÇO,ENDERECO COMPLETO);
 <br>
