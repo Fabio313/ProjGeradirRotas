@@ -21,6 +21,10 @@ por isso recarregue a pagina em questão.<br><br>
 
 <h2>Não feito</h2>
 <br>
+O nome das colunas não é dinamicamente feito(feito com base a primeira linha do excel) por isso caso o nome da 
+<br>
+coluna for mudado ele continuara funcionando porem no frontend mostra-ra o nome antido da coluna
+<br>
 -Não é possivel escolher quais colunas serão salvas no arquivo, o arquivo vira como padrão com as informações obrigatorias(OS,BASE,SERVIÇO,ENDERECO COMPLETO);
 <br>
 -Não é possivel alterar as pessoas de um time, para alterar deve-se apagar o time e 
