@@ -1,5 +1,6 @@
 <h1>Como utilizar</h1><br><br>
-
+O projeto foi feito em mongo db então tenha um servidor rodando com a porta padrão para utilização.
+<br>
 Antes de começar va dentro do projeto na biblioteca de classes "Model", entre na pasta "Service",
 <br>
 na classe "LeitorArquivos" alterar o caminho do arquivo xlsx que sera lido.
