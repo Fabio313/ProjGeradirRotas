@@ -29,7 +29,3 @@ selecione as equipes e clique em criar, o arquivo sera gerado na pasta do sistem
 coluna for mudado ele continuara funcionando porem no frontend mostra-ra o nome antido da coluna
 <br>
 -Não é possivel escolher quais colunas serão salvas no arquivo, o arquivo vira como padrão com as informações obrigatorias(OS,BASE,SERVIÇO,ENDERECO COMPLETO);
-<br>
--Não é possivel alterar as pessoas de um time, para alterar deve-se apagar o time e 
-<br>
-recriar com as novas pessoas(status das pessoas volta para disponivel quando se deleta o time que pertencem);
