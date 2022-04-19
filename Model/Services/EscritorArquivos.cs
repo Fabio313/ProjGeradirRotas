@@ -9,22 +9,38 @@ namespace Model.Services
 {
     public class EscritorArquivos
     {
-        public static void EscreveDocx(List<Equipe> equipesRota, List<Rotas> rotas)
+        public static void EscreveDocx(List<Equipe> equipesRota, string[,] rotas, Cidade cidade, string servico, List<string> colunas)
         {
-            int rota = 0;
-            var divisao = rotas.Count / equipesRota.Count;
-            using (StreamWriter sw = new(@"C:\Users\Fabio Z Ferrenha\Desktop\Atividades\GeradorDeRotas\CDriveDirs.docx"))
+            int[] indexCol = new int[colunas.Count];
+            int k = 0;
+            foreach (string coluna in colunas)
             {
+                
+                for(int j = 0;j<rotas.GetLength(1);j++)
+                {
+                    if (rotas[0, j] == coluna)
+                        indexCol[k] = j;
+                }
+                k++;
+            }
+            int indicegeral = 1;
+
+            var divisao = (rotas.GetLength(0) - 1) / equipesRota.Count;
+            using (StreamWriter sw = new($@"C:\Users\Fabio Z Ferrenha\Desktop\Atividades\GeradorDeRotas\Rota-{DateTime.Now.ToString("dd-MM-yyyy")}.docx"))
+            {
+                sw.WriteLine($"{servico} - {DateTime.Now.ToString("dd/MM/yyyy")}\n{cidade.Nome}\n\n");//Titulo
                 foreach (Equipe equipe in equipesRota)
                 {
-                    sw.WriteLine("Equipe: " + equipe.Nome + "\nRotas:");
+                    sw.WriteLine("Equipe: " + equipe.Nome + "\nRotas:");//Listar as rotas de cada equipe
                     for (int i = 0; i < divisao; i++)
                     {
-                        sw.WriteLine("Os: " + rotas[rota].Os+
-                                     " Base: " + rotas[rota].Base+
-                                     " Serviço: " + rotas[rota].Servico+
-                                     $"\nEndereco: {rotas[rota].Endereco},{rotas[rota].Numero}-{rotas[rota].Bairro}\nComplemento: {rotas[rota].Complemento} - Cep: {rotas[rota].Cep}\n");
-                        rota++;
+                        foreach(int index in indexCol)
+                        {
+                            sw.WriteLine($"{rotas[0, index]}: {rotas[i+indicegeral, index]}");
+                        }
+                        if (i > divisao)
+                            indicegeral = i;
+                        sw.WriteLine("\n");
                     }
                     sw.WriteLine("--------------------------------------------------------------");
                 }

@@ -12,8 +12,10 @@ using Microsoft.AspNetCore.Http;
 
 namespace MVCControleRotas.Controllers
 {
+    
     public class RotasController : Controller
     {
+        private static string[,] rotaarquivo;
         private readonly MVCControleRotasContext _context;
 
         public RotasController(MVCControleRotasContext context)
@@ -24,14 +26,14 @@ namespace MVCControleRotas.Controllers
         // GET: Rotas
         public async Task<IActionResult> Index(IFormFile pathFile)
         {
-            var sla = LeitorArquivos.ReadExcel(pathFile);
-            string[] slavetor = new string[sla.GetLength(1)];
-            for(int i = 0;i<sla.GetLength(1);i++)
+            var allrotas = LeitorArquivos.ReadExcel(pathFile);
+            string[] columrotas = new string[allrotas.GetLength(1)];
+            for(int i = 0;i<allrotas.GetLength(1);i++)
             {
-                slavetor[i] = sla[0, i];
+                columrotas[i] = allrotas[0, i];
             }
-
-            return View(slavetor);
+            rotaarquivo = allrotas;
+            return View(columrotas);
         }
 
         // GET: Rotas/Details/5
@@ -65,18 +67,22 @@ namespace MVCControleRotas.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create(IFormFile pathFile, [Bind("Data,Stats,Auditado,CopReverteu,Log,Pdf,Foto,Contrato,Wo,Os,Assinante,Tecnicos,Login,Matricula,Cop,UltimoAlterar,Local,PontoCasaApt,Cidade,Base,Horario,Segmento,Servico,TipoServico,TipoOs,GrupoServico,Endereco,Numero,Complemento,Cep,Node,Bairro,Pacote,Cod,Telefone1,Telefone2,Obs,ObsTecnico,Equipamento")] Rotas rotas)
         {
-            var teste = Request.Form["equipesRota"].ToList();
+            var colunas = Request.Form["colRequeridas"].ToList();
+            var cidade = Request.Form["cidadeRota"];
+            var servico = Request.Form["servicoRota"];
+            var equipes = Request.Form["equipesRota"].ToList();
+
             if (ModelState.IsValid)
             {
-                List<Equipe> equipes = new();
-                foreach(var equipe in teste)
+                List<Equipe> equipeslist = new();
+                foreach(var equipe in equipes)
                 {
-                    equipes.Add(await ConsultaService.GetIdEquipe(equipe));
+                    equipeslist.Add(await ConsultaService.GetIdEquipe(equipe));
                 }
-                List<Rotas> AllRotas = new();//LeitorArquivos.ReadExcel(pathFile);
-                EscritorArquivos.EscreveDocx(equipes,AllRotas.OrderBy(rota => rota.Cep).ToList());
+                var cidadeobj = await ConsultaService.GetIdCidades(cidade);
+                EscritorArquivos.EscreveDocx(equipeslist, rotaarquivo, cidadeobj,servico,colunas);
 
-                return RedirectToAction(nameof(Index));
+                return RedirectToPage(nameof(Index));
             }
             return View(rotas);
         }
