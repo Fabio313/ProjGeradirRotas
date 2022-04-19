@@ -107,6 +107,7 @@ namespace MVCControleRotas.Controllers
             {
                 try
                 {
+
                     var equipebusca = await ConsultaService.GetIdEquipe(id);
                     equipe.Cidade = equipebusca.Cidade;
                     ConsultaService.UpdateEquipes(id,equipe);
@@ -119,6 +120,33 @@ namespace MVCControleRotas.Controllers
                             Equipe = equipe
                         });
                     }
+
+                    var pessoasAdd = Request.Form["pessoaAdd"].ToList();
+                    foreach (var pessoa in pessoasAdd)
+                    {
+                        var pessoaobj = await ConsultaService.GetIdPessoa(pessoa);
+                        if (pessoaobj != null)
+                            ConsultaService.UpdatePessoas(pessoa, new Pessoa()
+                            {
+                                Id = pessoaobj.Id,
+                                Nome = pessoaobj.Nome,
+                                Equipe = equipe
+                            });
+                    }
+
+                    var pessoasDel = Request.Form["pessoaDel"].ToList();
+                    foreach (var pessoa in pessoasDel)
+                    {
+                        var pessoaobj = await ConsultaService.GetIdPessoa(pessoa);
+                        if (pessoaobj != null)
+                            ConsultaService.UpdatePessoas(pessoa, new Pessoa()
+                            {
+                                Id = pessoaobj.Id,
+                                Nome = pessoaobj.Nome,
+                                Equipe = null
+                            });
+                    }
+
                 }
                 catch (DbUpdateConcurrencyException)
                 {

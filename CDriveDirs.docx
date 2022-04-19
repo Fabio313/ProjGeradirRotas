@@ -1,46 +1,46 @@
-Equipe: Time alpha
+Equipe: Time Zeta
 Rotas:
 Os: 28407 Base: DAFBZ Serviço: Manutenção
 Endereco: Travessa das Iridáceas,141-Vila Santa Catarina
-Complemento: A
+Complemento: A - Cep: 04376-020
 
 Os: 48049 Base: RE5YZ Serviço: Instalaçao
 Endereco: Rua Armando Brussolo,177-Vila Romana
-Complemento: B
+Complemento: B - Cep: 05048-050
 
 Os: 43011 Base: AERGE Serviço: Instalaçao
 Endereco: Travessa Ângelo Betiol,137-Batistini
-Complemento: terreo
+Complemento: terreo - Cep: 09843-060
 
 Os: 55016 Base: NSFGZ Serviço: Troca Equipamento
 Endereco: Rua Dois,174-Residencial Ouroville
-Complemento: casa
+Complemento: casa - Cep: 12043-613
 
 Os: 49375 Base: AFNM Serviço: Instalaçao
 Endereco: Rua Francisco Vivona Júnior,184-Jardim Eulina
-Complemento: casa
+Complemento: casa - Cep: 13063-500
 
 --------------------------------------------------------------
 Equipe: Time Beta
 Rotas:
 Os: 49827 Base: BSRTN Serviço: Manutenção
 Endereco: Avenida Ana Carolina de Barros Levy,127-Centro
-Complemento: fundos
+Complemento: fundos - Cep: 13480-755
 
 Os: 24473 Base: SRTHS Serviço: Instalaçao
 Endereco: Avenida Pedro Hortal,190-Jardim Estoril
-Complemento:  
+Complemento:   - Cep: 14704-000
 
 Os: 49122 Base: ABERB Serviço: Troca Equipamento
 Endereco: Rua José João de Souza,162-Loteamento Mário Luiz Rodrigues do Prado
-Complemento: fundos
+Complemento: fundos - Cep: 17023-862
 
 Os: 27140 Base: ETYMN Serviço: Manutenção
 Endereco: Rua João Florêncio de Carvalho,195-Jardim Eldorado
-Complemento:  
+Complemento:   - Cep: 17505-000
 
 Os: 42871 Base: NXVBN Serviço: Troca Equipamento
 Endereco: Rua Antônio Pereira Telles,144-Parque Shiraiwa
-Complemento: terreo
+Complemento: terreo - Cep: 19063-190
 
 --------------------------------------------------------------

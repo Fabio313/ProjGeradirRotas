@@ -8,6 +8,7 @@ using Microsoft.EntityFrameworkCore;
 using MVCControleRotas.Data;
 using Model;
 using Model.Services;
+using Microsoft.AspNetCore.Http;
 
 namespace MVCControleRotas.Controllers
 {
@@ -21,9 +22,16 @@ namespace MVCControleRotas.Controllers
         }
 
         // GET: Rotas
-        public async Task<IActionResult> Index()
+        public async Task<IActionResult> Index(IFormFile pathFile)
         {
-            return View(LeitorArquivos.ReadExcel().OrderBy(rota=>rota.Cep));
+            var sla = LeitorArquivos.ReadExcel(pathFile);
+            string[] slavetor = new string[sla.GetLength(1)];
+            for(int i = 0;i<sla.GetLength(1);i++)
+            {
+                slavetor[i] = sla[0, i];
+            }
+
+            return View(slavetor);
         }
 
         // GET: Rotas/Details/5
@@ -55,7 +63,7 @@ namespace MVCControleRotas.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Data,Stats,Auditado,CopReverteu,Log,Pdf,Foto,Contrato,Wo,Os,Assinante,Tecnicos,Login,Matricula,Cop,UltimoAlterar,Local,PontoCasaApt,Cidade,Base,Horario,Segmento,Servico,TipoServico,TipoOs,GrupoServico,Endereco,Numero,Complemento,Cep,Node,Bairro,Pacote,Cod,Telefone1,Telefone2,Obs,ObsTecnico,Equipamento")] Rotas rotas)
+        public async Task<IActionResult> Create(IFormFile pathFile, [Bind("Data,Stats,Auditado,CopReverteu,Log,Pdf,Foto,Contrato,Wo,Os,Assinante,Tecnicos,Login,Matricula,Cop,UltimoAlterar,Local,PontoCasaApt,Cidade,Base,Horario,Segmento,Servico,TipoServico,TipoOs,GrupoServico,Endereco,Numero,Complemento,Cep,Node,Bairro,Pacote,Cod,Telefone1,Telefone2,Obs,ObsTecnico,Equipamento")] Rotas rotas)
         {
             var teste = Request.Form["equipesRota"].ToList();
             if (ModelState.IsValid)
@@ -65,7 +73,7 @@ namespace MVCControleRotas.Controllers
                 {
                     equipes.Add(await ConsultaService.GetIdEquipe(equipe));
                 }
-                List<Rotas> AllRotas = LeitorArquivos.ReadExcel();
+                List<Rotas> AllRotas = new();//LeitorArquivos.ReadExcel(pathFile);
                 EscritorArquivos.EscreveDocx(equipes,AllRotas.OrderBy(rota => rota.Cep).ToList());
 
                 return RedirectToAction(nameof(Index));

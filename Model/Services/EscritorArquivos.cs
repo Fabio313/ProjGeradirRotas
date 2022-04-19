@@ -13,7 +13,7 @@ namespace Model.Services
         {
             int rota = 0;
             var divisao = rotas.Count / equipesRota.Count;
-            using (StreamWriter sw = new StreamWriter(@"C:\Users\Fabio Z Ferrenha\Desktop\Atividades\GeradorDeRotas\CDriveDirs.docx"))
+            using (StreamWriter sw = new(@"C:\Users\Fabio Z Ferrenha\Desktop\Atividades\GeradorDeRotas\CDriveDirs.docx"))
             {
                 foreach (Equipe equipe in equipesRota)
                 {
@@ -23,7 +23,7 @@ namespace Model.Services
                         sw.WriteLine("Os: " + rotas[rota].Os+
                                      " Base: " + rotas[rota].Base+
                                      " Serviço: " + rotas[rota].Servico+
-                                     $"\nEndereco: {rotas[rota].Endereco},{rotas[rota].Numero}-{rotas[rota].Bairro}\nComplemento: {rotas[rota].Complemento}\n");
+                                     $"\nEndereco: {rotas[rota].Endereco},{rotas[rota].Numero}-{rotas[rota].Bairro}\nComplemento: {rotas[rota].Complemento} - Cep: {rotas[rota].Cep}\n");
                         rota++;
                     }
                     sw.WriteLine("--------------------------------------------------------------");
