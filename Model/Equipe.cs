@@ -15,7 +15,7 @@ namespace Model
         [BsonRepresentation(BsonType.ObjectId)]
         public string Id { get; set; } = ObjectId.GenerateNewId().ToString();
 
-        [Required]
+        [Required(ErrorMessage = "Campo obrigatorio")]
         public string Nome { get; set; }
 
         public Cidade Cidade { get; set; }

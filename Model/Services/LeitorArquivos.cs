@@ -14,25 +14,30 @@ namespace Model.Services
 {
     public class LeitorArquivos
     {
-        public static string[,] ReadExcel(IFormFile file)
+        public static List<List<string>> ReadExcel(IFormFile file)
         {
-             
+            List<List<string>> exel = new();
+            
             ExcelPackage.LicenseContext = LicenseContext.NonCommercial;
             using (ExcelPackage package = new(file.OpenReadStream()))
             {
                 ExcelWorksheet worksheet = package.Workbook.Worksheets[0];
                 int colCount = worksheet.Dimension.End.Column;
                 int rowCount = worksheet.Dimension.End.Row;
-                var rotas = new string[rowCount, colCount];
 
                 for (int row = 1; row <= rowCount; row++)
                 {
+                    List<string> linha = new();
                     for (int col = 1; col <= colCount;col++)
                     {
-                        rotas[row - 1,col - 1] = worksheet.Cells[row, col].Value.ToString();
+                        var valor = worksheet.Cells[row, col].Value;
+                        if (valor == null)
+                            valor = " ";
+                        linha.Add(valor.ToString());
                     }
+                    exel.Add(linha);
                 }
-                return rotas;
+                return exel;
             }
         }
     }

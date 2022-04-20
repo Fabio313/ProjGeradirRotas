@@ -19,7 +19,5 @@ namespace MVCControleRotas.Data
         public DbSet<Model.Pessoa> Pessoa { get; set; }
 
         public DbSet<Model.Equipe> Equipe { get; set; }
-
-        public DbSet<Model.Rotas> Rotas { get; set; }
     }
 }

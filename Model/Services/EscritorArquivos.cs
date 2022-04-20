@@ -9,39 +9,51 @@ namespace Model.Services
 {
     public class EscritorArquivos
     {
-        public static void EscreveDocx(List<Equipe> equipesRota, string[,] rotas, Cidade cidade, string servico, List<string> colunas)
+        public static void EscreveDocx(List<Equipe> equipesRota, List<List<string>> rotas, Cidade cidade, string servico, List<string> colunas)
         {
-            int[] indexCol = new int[colunas.Count];
-            int k = 0;
-            foreach (string coluna in colunas)
-            {
-                
-                for(int j = 0;j<rotas.GetLength(1);j++)
-                {
-                    if (rotas[0, j] == coluna)
-                        indexCol[k] = j;
-                }
-                k++;
-            }
-            int indicegeral = 1;
+            
+            //formata as rotas com base nas escolhas de filtro
+            int colservico = rotas[0].FindIndex(coluna=> coluna == "SERVIÇO");
+            int colcidade = rotas[0].FindIndex(coluna => coluna == "CIDADE");
+            int colcep = rotas[0].FindIndex(coluna => coluna == "CEP");
 
-            var divisao = (rotas.GetLength(0) - 1) / equipesRota.Count;
+            //deixando apenas o que foi filtrado
+            var numcount = rotas.Count;
+            var allColuns = rotas[0];
+            for (int i = 0; i< numcount;i++)
+            {
+                rotas.Remove(rotas.Find(rota => rota[colcidade].ToLower() != cidade.Nome.ToLower()));
+                rotas.Remove(rotas.Find(rota => rota[colservico].ToLower()
+                                                                .Replace("ç","c")
+                                                                .Replace("ã","a") != servico.ToLower()
+                                                                                            .Replace("ç", "c")                      
+                                                                                            .Replace("ã", "a")));
+            }
+
+            //ordena por cep
+            var rotasordenadas = rotas.OrderBy(x => x[colcep]).ToList();
+
+            int indicegeral = 0;
+
+            var divisao = rotasordenadas.Count / equipesRota.Count;
             using (StreamWriter sw = new($@"C:\Users\Fabio Z Ferrenha\Desktop\Atividades\GeradorDeRotas\Rota-{DateTime.Now.ToString("dd-MM-yyyy")}.docx"))
             {
                 sw.WriteLine($"{servico} - {DateTime.Now.ToString("dd/MM/yyyy")}\n{cidade.Nome}\n\n");//Titulo
                 foreach (Equipe equipe in equipesRota)
                 {
-                    sw.WriteLine("Equipe: " + equipe.Nome + "\nRotas:");//Listar as rotas de cada equipe
-                    for (int i = 0; i < divisao; i++)
+                    sw.WriteLine("Equipe: " + equipe.Nome + "\nRotas:\n");
+                    //Listar as rotas de cada equipe
+                    for (int i = indicegeral; i < divisao; i++)
                     {
-                        foreach(int index in indexCol)
+                        //Listar as colunas escolhidas
+                        foreach(var index in colunas)
                         {
-                            sw.WriteLine($"{rotas[0, index]}: {rotas[i+indicegeral, index]}");
+                            sw.WriteLine($"{allColuns[int.Parse(index)]}: {rotas[i][int.Parse(index)]}");
                         }
-                        if (i > divisao)
-                            indicegeral = i;
+                        indicegeral = 1;
                         sw.WriteLine("\n");
                     }
+
                     sw.WriteLine("--------------------------------------------------------------");
                 }
             }

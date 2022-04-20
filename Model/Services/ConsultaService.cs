@@ -112,7 +112,6 @@ namespace Model.Services
                 return null;
             return passageiro;
         }
-        
         public static void UpdateEquipes(string id, Equipe equipe)
         {
             APIConnection.PutAsJsonAsync("https://localhost:44341/api/Equipes/" + id, equipe);
@@ -124,6 +123,19 @@ namespace Model.Services
         public static void CreateEquipe(Equipe equipe)
         {
             APIConnection.PostAsJsonAsync("https://localhost:44341/api/Equipes", equipe);
+        }
+
+        public static async Task<Usuario> GetUsuario(string login,string senha)
+        {
+            GetRestposta = await APIConnection.GetAsync("https://localhost:44333/api/Usuarios/Busca?login=" + login +"&senha=" + senha);
+            var usuario = JsonConvert.DeserializeObject<Usuario>(await GetRestposta.Content.ReadAsStringAsync());
+            if (usuario == null)
+                return null;
+            return usuario;
+        }
+        public static void CreateUsuario(Usuario usuario)
+        {
+            APIConnection.PostAsJsonAsync("https://localhost:44333/api/Usuarios", usuario);
         }
     }
 }

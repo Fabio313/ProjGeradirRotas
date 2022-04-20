@@ -116,6 +116,15 @@ namespace MVCControleRotas.Controllers
                             Nome = equipe.Nome,
                             Cidade = cidade
                         });
+                        foreach (Pessoa pessoa in await ConsultaService.GetPessoasTime(equipe.Id))
+                        {
+                            ConsultaService.UpdatePessoas(pessoa.Id, new Pessoa()
+                            {
+                                Id = pessoa.Id,
+                                Nome = pessoa.Nome,
+                                Equipe = equipe
+                            });
+                        }
                     }
                 }
                 catch (DbUpdateConcurrencyException)
