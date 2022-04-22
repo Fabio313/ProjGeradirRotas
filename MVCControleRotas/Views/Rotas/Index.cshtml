@@ -13,66 +13,84 @@
 "RETORNO CREDENCIADA",
 "SEM SINAL",
 "TROCA DE TERMINAL",
-"VISITA TECNICA"};
+"VISITA TECNICA",
+"MANUTENÇÃO"};
+
 }
-<table class="table">
-	<thead>
-		<form asp-action="Create">
-			
-			<h5>Escolha as colunas que deseja nas informações da rota</h5>
-				@for(int i = 0;i<Model.Count ;i++)
-				{
-					<tr>
-						<td>
-							<div class="checkbox">
-								<input type="checkbox" id="colRequeridas" name="colRequeridas" value="@i" />
-										@Html.DisplayFor(coluna => coluna[i])
-										
-							</div>
-						</td>
-					</tr>
-				}
-		<div class="form-group">
+<form asp-action="Create">
+	<div class="form-group">
 			<h5>Escolha o Serviço</h5>
-			<select name="servicoRota" id="servicoRota" >
+			<select name="servicoRota" id="servicoRota">
 					@foreach (string servico in servicos)
 					{
-					<option value="@servico" >@servico</option>
+					<option value="@servico">@servico</option>
 					}
 			</select>
 		</div>
 
 		<div class="form-group">
-			<label for="cars">Escolha uma cidade:</label>
-			<select name="cidadeRota" id="cidadeRota" oninput="">
+			<h5>Escolha uma cidade:</h5>
+			<select name="cidadeRota" id="cidadeRota">
 					@foreach (Cidade cidade in await ConsultaService.GetCidades())
 					{
 					<option value="@cidade.Id">@cidade.Nome</option>
 					}
 			</select>
 		</div>
+
 		<div class="form-group">
-			<label for="cars">Escolha os times:</label>
-					@foreach (Equipe equipe in await ConsultaService.GetEquipes())
-					{
-					<tr>
-						<td>
-							<div class="checkbox">
-								<input type="checkbox" id="equipesRota" name="equipesRota" value="@equipe.Id" />@equipe.Nome
-							</div>
-						</td>
-					</tr>
-					}
+			<h5>Escolha os times:</h5>
+				<div class="checkbox" id="selectTimes">
+						
+				</div>
 		</div>
+	<thead>
+			<h5>Escolha as colunas que deseja nas informações da rota</h5>
+			@for (int i = 0; i < Model.Count; i++)
+			{
+			<tr>
+				<td>
+					<div class="checkbox">
+						<input type="checkbox" id="colRequeridas" name="colRequeridas" value="@i" />
+							@Html.DisplayFor(coluna => coluna[i])
+
+					</div>
+				</td>
+			</tr>
+			}
 		<div class="form-group">
-                <input type="submit" value="Create" class="btn btn-primary" />
-            </div>
+			<input type="submit" value="Criar rota" class="btn btn-primary"/>
+		</div>
 		</form>
 	</thead>
-	<tbody>
 		<script>
-			function equipesCidade(){
-			}
+			$(document).ready(function () {
+				var url = '@Url.Action("GetTimesCidade", "Equipes")';
+				console.log(url);
+				$("#cidadeRota").change(function() {
+					let id = $(this).val();  
+					console.log(id);
+					$.ajax({
+						url : url,
+						type : 'get',
+						data : {
+							id : id
+						}
+					})
+					.done(function(equipes){
+						 console.log(equipes);
+						 var inputs = "";
+						 equipes.map(function(equipe, i) {
+							inputs+="<input type='checkbox' id='equipesRota' name='equipesRota' value='"+equipe.id+"'/> "+equipe.nome+"<p></p>";
+							
+						 })
+						 $("#selectTimes").html(inputs);
+					})
+					.fail(function(err){
+									alert(err);
+					});
+				});
+			});
 		</script>
+	<tbody>
 	</tbody>
-</table>

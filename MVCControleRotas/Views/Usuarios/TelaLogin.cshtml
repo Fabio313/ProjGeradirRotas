@@ -1,0 +1,36 @@
+﻿@model Model.Usuario
+
+@{
+    ViewData["Title"] = "TelaLogin";
+     
+}
+
+<h1>Login</h1>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="~/css/site.css" />
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js" type="text/javascript"></script>
+</head>
+<div>
+    <form asp-action="Login">
+            <div class="form-group">
+                <h5>Login</h5>
+                <input type="text" name="userLogin" id="userLogin">
+            </div>
+            <div class="form-group">
+                <h5>Senha</h5>
+                <input type="password" name="userSenha" id="userSenha">
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Login" class="btn btn-primary" />
+            </div>
+     </form>
+</div>
+<body>
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="~/js/site.js" asp-append-version="true"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js" type="text/javascript"></script>
+</body>

@@ -20,6 +20,15 @@
                 <input asp-for="Nome" class="form-control" />
                 <span asp-validation-for="Nome" class="text-danger"></span>
             </div>
+            <div class="form-group">
+			    <label>Escolha uma cidade:</label>
+			    <select name="cidadeEquipe" id="cidadeEquipe" oninput="">
+					    @foreach (Cidade cidade in await ConsultaService.GetCidades())
+					    {
+					    <option value="@cidade.Id">@cidade.Nome</option>
+					    }
+			    </select>
+		    </div>
             <label>Adicionar pessoas</label>
             <div class="form-group">
                 @foreach(Pessoa pessoa in await ConsultaService.GetPessoasDisponiveis())

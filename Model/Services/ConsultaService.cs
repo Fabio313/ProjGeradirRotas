@@ -129,7 +129,7 @@ namespace Model.Services
         {
             GetRestposta = await APIConnection.GetAsync("https://localhost:44333/api/Usuarios/Busca?login=" + login +"&senha=" + senha);
             var usuario = JsonConvert.DeserializeObject<Usuario>(await GetRestposta.Content.ReadAsStringAsync());
-            if (usuario == null)
+            if (usuario.Login == null)
                 return null;
             return usuario;
         }

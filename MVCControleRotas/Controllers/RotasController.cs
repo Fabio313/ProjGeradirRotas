@@ -26,7 +26,8 @@ namespace MVCControleRotas.Controllers
         // GET: Rotas
         public async Task<IActionResult> Index(IFormFile pathFile)
         {
-            _rotaarquivo = LeitorArquivos.ReadExcel(pathFile); ;
+            _rotaarquivo = LeitorArquivos.ReadExcel(pathFile);
+            ViewBag.arquivo = pathFile;
             return View(_rotaarquivo[0]);
         }
 
@@ -41,7 +42,7 @@ namespace MVCControleRotas.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create(IFormFile pathFile, [Bind("Data,Stats,Auditado,CopReverteu,Log,Pdf,Foto,Contrato,Wo,Os,Assinante,Tecnicos,Login,Matricula,Cop,UltimoAlterar,Local,PontoCasaApt,Cidade,Base,Horario,Segmento,Servico,TipoServico,TipoOs,GrupoServico,Endereco,Numero,Complemento,Cep,Node,Bairro,Pacote,Cod,Telefone1,Telefone2,Obs,ObsTecnico,Equipamento")] Rotas rotas)
+        public async Task<IActionResult> Create(Rotas rotas)
         {
             var colunas = Request.Form["colRequeridas"].ToList();
             var cidade = Request.Form["cidadeRota"];
@@ -58,7 +59,7 @@ namespace MVCControleRotas.Controllers
                 var cidadeobj = await ConsultaService.GetIdCidades(cidade);
                 EscritorArquivos.EscreveDocx(equipeslist, _rotaarquivo, cidadeobj,servico,colunas);
 
-                return View(Index(pathFile));
+                return RedirectToRoute(new { controller="Home",Action = "Index" });
             }
             return View();
         }

@@ -3,6 +3,7 @@
 @model Model.Equipe
 
 @{
+    var situacao= ViewBag.sucess;
     ViewData["Title"] = "Create";
 }
 
@@ -10,7 +11,8 @@
 
 <h4>Equipe</h4>
 <hr />
-<div class="row">
+<div class="row" onload="VerificaStatus(@situacao)">
+    
     <div class="col-md-4">
         <form asp-action="Create">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
@@ -30,7 +32,16 @@
                 }
             </div>
             <div class="form-group">
-                <input type="submit" value="Create" class="btn btn-primary" />
+			    <label>Escolha uma cidade:</label>
+			    <select name="cidadeEquipecreate" id="cidadeEquipecreate">
+					    @foreach (Cidade cidade in await ConsultaService.GetCidades())
+					    {
+					    <option value="@cidade.Id">@cidade.Nome</option>
+					    }
+			    </select>
+		    </div>
+            <div class="form-group">
+                <input type="submit" value="Create" class="btn btn-primary"/>
             </div>
         </form>
     </div>
@@ -39,6 +50,15 @@
 <div>
     <a asp-action="Index">Back to List</a>
 </div>
+
+<script>
+    function VerificaStatus(status){
+        if(status == false)
+        {
+            alert("Precisa escolher ao menos uma pessoa")
+        }
+    }
+</script>
 
 @section Scripts {
     @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}

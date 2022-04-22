@@ -20,6 +20,13 @@ namespace MVCControleRotas.Controllers
             _context = context;
         }
 
+        
+        public async Task<JsonResult> GetTimesCidade(string id)
+        {
+            var equipes = await ConsultaService.GetEquipesCidades(id);
+            return Json(equipes);
+        }
+
         // GET: Equipes
         public async Task<IActionResult> Index()
         {
@@ -56,8 +63,12 @@ namespace MVCControleRotas.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create([Bind("Id,Nome")] Equipe equipe)
         {
+            ViewBag.sucess = false;
             var teste = Request.Form["pessoa"].ToList();
-            
+            if (teste.Count == 0)
+                return View();
+            var cidade = Request.Form["cidadeEquipecreate"];
+            equipe.Cidade = await ConsultaService.GetIdCidades(cidade);
             if (ModelState.IsValid)
             {
                 ConsultaService.CreateEquipe(equipe);
@@ -107,9 +118,14 @@ namespace MVCControleRotas.Controllers
             {
                 try
                 {
+                    var pessoasAdd = Request.Form["pessoaAdd"].ToList();
+                    if (pessoasAdd.Count == (await ConsultaService.GetPessoasTime(id)).Count)
+                        return View();
+
+                    var cidade = Request.Form["cidadeEquipe"];
+                    equipe.Cidade = await ConsultaService.GetIdCidades(cidade);
 
                     var equipebusca = await ConsultaService.GetIdEquipe(id);
-                    equipe.Cidade = equipebusca.Cidade;
                     ConsultaService.UpdateEquipes(id,equipe);
                     foreach (Pessoa pessoa in await ConsultaService.GetPessoasTime(id))
                     {
@@ -120,8 +136,7 @@ namespace MVCControleRotas.Controllers
                             Equipe = equipe
                         });
                     }
-
-                    var pessoasAdd = Request.Form["pessoaAdd"].ToList();
+                    
                     foreach (var pessoa in pessoasAdd)
                     {
                         var pessoaobj = await ConsultaService.GetIdPessoa(pessoa);
