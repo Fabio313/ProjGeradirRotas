@@ -12,22 +12,23 @@ namespace Model.Services
         public static void EscreveDocx(List<Equipe> equipesRota, List<List<string>> rotas, Cidade cidade, string servico, List<string> colunas)
         {
 
-            //formata as rotas com base nas escolhas de filtro
+            //pegar qual coluna possui o nome definido
+            int colendereco = rotas[0].FindIndex(coluna => coluna == "ENDEREÇO");
             int colservico = rotas[0].FindIndex(coluna => coluna == "SERVIÇO");
             int colcidade = rotas[0].FindIndex(coluna => coluna == "CIDADE");
             int colcep = rotas[0].FindIndex(coluna => coluna == "CEP");
 
             //deixando apenas o que foi filtrado
             var numcount = rotas.Count;
-            var allColuns = rotas[0];
+            var allColumns = rotas[0];
             for (int i = 0; i < numcount; i++)
             {
                 rotas.Remove(rotas.Find(rota => rota[colcidade].ToLower() != cidade.Nome.ToLower()));
                 rotas.Remove(rotas.Find(rota => rota[colservico].ToLower()
                                                                 .Replace("ç", "c")
                                                                 .Replace("ã", "a") != servico.ToLower()
-                                                                                            .Replace("ç", "c")
-                                                                                            .Replace("ã", "a")));
+                                                                                             .Replace("ç", "c")
+                                                                                             .Replace("ã", "a")));
             }
 
             //ordena por cep
@@ -57,7 +58,7 @@ namespace Model.Services
                         //Listar as colunas escolhidas
                         foreach (var index in colunas)
                         {
-                            sw.WriteLine($"{allColuns[int.Parse(index)]}: {rotasordenadas[i+indicegeral][int.Parse(index)]}");
+                            sw.WriteLine($"{allColumns[int.Parse(index)]}: {rotasordenadas[i+indicegeral][int.Parse(index)]}");
                         }
                         if ((i + 1) >= divisao)
                             indicegeral = i+indicegeral+1;

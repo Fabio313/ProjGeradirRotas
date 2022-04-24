@@ -26,8 +26,8 @@ namespace MVCControleRotas.Controllers
         // GET: Rotas
         public async Task<IActionResult> Index(IFormFile pathFile)
         {
-            _rotaarquivo = LeitorArquivos.ReadExcel(pathFile);
-            ViewBag.arquivo = pathFile;
+            if (pathFile != null)
+                _rotaarquivo = LeitorArquivos.ReadExcel(pathFile);
             return View(_rotaarquivo[0]);
         }
 
@@ -48,6 +48,8 @@ namespace MVCControleRotas.Controllers
             var cidade = Request.Form["cidadeRota"];
             var servico = Request.Form["servicoRota"];
             var equipes = Request.Form["equipesRota"].ToList();
+            if (colunas.Count == 0 || equipes.Count == 0 || servico == "none")
+                return RedirectToRoute(new { controller = "Rotas", Action = "Index" });
 
             if (ModelState.IsValid)
             {

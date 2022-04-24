@@ -57,7 +57,6 @@ namespace MVCControleRotas.Controllers
         public async Task<IActionResult> Create([Bind("Id,Nome,UF")] Cidade cidade)
         {
             var teste = Request.Form["equipe"].ToList();
-
             if (ModelState.IsValid)
             {
                 ConsultaService.CreateCidade(cidade);

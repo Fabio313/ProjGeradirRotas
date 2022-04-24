@@ -28,7 +28,7 @@ namespace Model.Services
                 for (int row = 1; row <= rowCount; row++)
                 {
                     List<string> linha = new();
-                    for (int col = 1; col <= colCount;col++)
+                    for (int col = 1; col <= colCount; col++)
                     {
                         var valor = worksheet.Cells[row, col].Value;
                         if (valor == null)
@@ -37,8 +37,9 @@ namespace Model.Services
                     }
                     exel.Add(linha);
                 }
-                return exel;
             }
+            return exel;
+            
         }
     }
 }
