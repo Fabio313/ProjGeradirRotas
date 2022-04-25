@@ -1,22 +1,20 @@
 <h1>Como utilizar</h1><br><br>
 -O projeto foi feito em mongo db então tenha um servidor rodando com a porta padrão para utilização(27017);
 <br><br>
--Certifique-se de que o arquivo excel não contem linha ou colunas residuais, todas as linhas e colunas que nao forem utilizadas devem ser apagadas(não deixadas em branco mas sim deletadas);
-<br><br>
 -Durante a primeira conexão com uma api (edit,create,delete) pode demorar para aparecer o que alterado na tela principal,
 <br>
 por isso caso nao aparece o que foi alterado no momento recarregue a pagina em questão;
 <br><br>
+-Na primeira utilização do sistema o usuário será redirecionado para a tela de cadastro e após o cadastro ira para tela de login;
+<br><br>
 -Para gerar as rotas clique no botao para escolher arquivo no menu principal e escolha o arquivo xlsx que deseja ler
 <br>
-após isso aparecera todas as opções disponiveis para configurar as rotas que deseja, após terminar clique em no botao ao fim da pagina;
+após isso aparecera todas as opções disponiveis para configurar as rotas que deseja, após terminar clique no botao de criação
 <br>
-Com isso o arquivo ".docx" ja sera criado na pasta do proprio sistema em GeradorDeRotas\MVCControleRotas\wwwroot\file.
+que te ira te levar a tela de download do arquivo gerado apenas precisando clicar no link.
 <br><br><br>
 
 
 <h2>Não feito</h2>
 <br>
--A opção de endereço durante as opções para criação do arquivo não traz o endereço completo sendo necessario
-<br>
-escolher cada opção para fazer um endereço completo no arquivo.
+-O login por enquanto não é feito com jwt assim não tem autorizações para diferentes usuarios.
