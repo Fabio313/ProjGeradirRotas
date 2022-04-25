@@ -3,8 +3,6 @@
 <br><br>
 -Certifique-se de que o arquivo excel não contem linha ou colunas residuais, todas as linhas e colunas que nao forem utilizadas devem ser apagadas(não deixadas em branco mas sim deletadas);
 <br><br>
--O sistema não permite a utilização do mesmo caso não esteja logado então se registre antes de utilizar;
-<br><br>
 -Durante a primeira conexão com uma api (edit,create,delete) pode demorar para aparecer o que alterado na tela principal,
 <br>
 por isso caso nao aparece o que foi alterado no momento recarregue a pagina em questão;
