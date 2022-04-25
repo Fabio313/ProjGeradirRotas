@@ -1,4 +1,5 @@
-﻿@using Model
+﻿@using MVCControleRotas.Controllers
+@using Model
 @using Model.Services
 @model List<string>
 
@@ -50,15 +51,19 @@
 			<h5>Escolha as colunas que deseja nas informações da rota</h5>
 			@for (int i = 0; i < Model.Count; i++)
 			{
-			<tr>
-				<td>
-					<div class="checkbox">
-						<input type="checkbox" id="colRequeridas" name="colRequeridas" value="@i" />
-							@Html.DisplayFor(coluna => coluna[i])
+				if(RotasController._nomesColEnd.Find(coluna => coluna == Model[i]) == null)
+				{	
+					<tr>
+						<td>
+							<div class="checkbox">
+						
+								<input type="checkbox" id="colRequeridas" name="colRequeridas" value="@i" />
+									@Html.DisplayFor(coluna => coluna[i])
 
-					</div>
-				</td>
-			</tr>
+							</div>
+						</td>
+					</tr>
+				}
 			}
 		<div class="form-group">
 			<input type="submit" value="Criar rota" class="btn btn-primary"/>

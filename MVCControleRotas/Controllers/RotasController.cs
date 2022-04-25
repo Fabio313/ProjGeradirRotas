@@ -18,6 +18,11 @@ namespace MVCControleRotas.Controllers
     {
         private static List<List<string>> _rotaarquivo;
         private static string _filePath;
+        public static List<string> _nomesColEnd = new List<string> {
+"NUMERO",
+"BAIRRO",
+"COMPLEMENTO",
+"CEP"};
 
         IWebHostEnvironment _appEnvironment;
         public RotasController(IWebHostEnvironment env)
