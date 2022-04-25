@@ -9,9 +9,9 @@ namespace Model.Services
 {
     public class EscritorArquivos
     {
-        public static void EscreveDocx(List<Equipe> equipesRota, List<List<string>> rotas, Cidade cidade, string servico, List<string> colunas, string path)
+        public static string EscreveDocx(List<Equipe> equipesRota, List<List<string>> rotas, Cidade cidade, string servico, List<string> colunas, string path)
         {
-            string PathFile = path + "//file//Rota-"+DateTime.Now.ToString("dd - MM - yyyy")+".docx";
+            string PathFile = path + "//file//Rota-"+DateTime.Now.ToString("dd - MM - yyyy")+"["+cidade.Nome+","+servico+"].docx";
 
             //pegar qual coluna possui o nome definido
             int colnumero = rotas[0].FindIndex(coluna => coluna == "NUMERO");
@@ -95,6 +95,7 @@ namespace Model.Services
                     sw.WriteLine("--------------------------------------------------------------");
                 }
             }
+            return PathFile;
         }
     }
 }

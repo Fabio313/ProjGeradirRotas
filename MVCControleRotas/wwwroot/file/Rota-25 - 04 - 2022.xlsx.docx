@@ -5,6 +5,9 @@ Araraquara
 Equipe: Time Beta
 Rotas:
 
+OS: 25814
+BASE: DAFBZ
+COD:  
 ENDEREÇO: Travessa das Iridáceas
 NUMERO: 161
 BAIRRO: Vila Santa Catarina
@@ -12,6 +15,9 @@ COMPLEMENTO: A
 CEP: 04376-020
 
 
+OS: 11515
+BASE: RE5YZ
+COD:  
 ENDEREÇO: Rua Armando Brussolo
 NUMERO: 141
 BAIRRO: Vila Romana
@@ -19,6 +25,9 @@ COMPLEMENTO: B
 CEP: 05048-050
 
 
+OS: 25576
+BASE: AERGE
+COD:  
 ENDEREÇO: Travessa Ângelo Betiol
 NUMERO: 150
 BAIRRO: Batistini
@@ -30,6 +39,9 @@ CEP: 09843-060
 Equipe: Equipe 2
 Rotas:
 
+OS: 43126
+BASE: NSFGZ
+COD:  
 ENDEREÇO: Rua Dois
 NUMERO: 166
 BAIRRO: Residencial Ouroville
@@ -37,6 +49,9 @@ COMPLEMENTO: casa
 CEP: 12043-613
 
 
+OS: 18999
+BASE: AFNM
+COD:  
 ENDEREÇO: Rua Francisco Vivona Júnior
 NUMERO: 191
 BAIRRO: Jardim Eulina
@@ -44,6 +59,9 @@ COMPLEMENTO: casa
 CEP: 13063-500
 
 
+OS: 32858
+BASE: BSRTN
+COD:  
 ENDEREÇO: Avenida Ana Carolina de Barros Levy
 NUMERO: 132
 BAIRRO: Centro
@@ -55,6 +73,9 @@ CEP: 13480-755
 Equipe: equipe 3
 Rotas:
 
+OS: 18988
+BASE: ABERB
+COD:  
 ENDEREÇO: Rua José João de Souza
 NUMERO: 161
 BAIRRO: Loteamento Mário Luiz Rodrigues do Prado
@@ -62,6 +83,9 @@ COMPLEMENTO: fundos
 CEP: 17023-862
 
 
+OS: 13287
+BASE: ETYMN
+COD:  
 ENDEREÇO: Rua João Florêncio de Carvalho
 NUMERO: 191
 BAIRRO: Jardim Eldorado

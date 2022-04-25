@@ -25,6 +25,7 @@ namespace MVCControleRotas.Controllers
         {
             if((await ConsultaService.GetUsuarios()).Count==0)
             {
+                TempData["error"] = "Nenhum usuário ainda cadastrado por favor cadastre um";
                 return RedirectToRoute(new { controller = "Usuarios", Action = "Create" });
             }
             else
@@ -45,11 +46,6 @@ namespace MVCControleRotas.Controllers
             }
             logado = true;
             return RedirectToRoute(new { controller = "Home", Action = "Index" });
-        }
-
-        public IActionResult Details()
-        {
-            return View();
         }
 
         // GET: Usuarios/Create

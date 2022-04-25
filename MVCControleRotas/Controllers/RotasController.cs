@@ -13,10 +13,11 @@ using Microsoft.AspNetCore.Hosting;
 
 namespace MVCControleRotas.Controllers
 {
-    
+
     public class RotasController : Controller
     {
         private static List<List<string>> _rotaarquivo;
+        private static string _filePath;
 
         IWebHostEnvironment _appEnvironment;
         public RotasController(IWebHostEnvironment env)
@@ -31,8 +32,7 @@ namespace MVCControleRotas.Controllers
             {
                 if (pathFile.FileName.Contains(".xlsx"))
                 {
-                    if (pathFile != null)
-                        _rotaarquivo = LeitorArquivos.ReadExcel(pathFile);
+                    _rotaarquivo = LeitorArquivos.ReadExcel(pathFile);
                 }
                 else
                 {
@@ -86,17 +86,26 @@ namespace MVCControleRotas.Controllers
             if (ModelState.IsValid)
             {
                 List<Equipe> equipeslist = new();
-                foreach(var equipe in equipes)
+                foreach (var equipe in equipes)
                 {
                     equipeslist.Add(await ConsultaService.GetIdEquipe(equipe));
                 }
                 var cidadeobj = await ConsultaService.GetIdCidades(cidade);
-                EscritorArquivos.EscreveDocx(equipeslist, _rotaarquivo, cidadeobj,servico,colunas, _appEnvironment.WebRootPath);
+                _filePath = EscritorArquivos.EscreveDocx(equipeslist, _rotaarquivo, cidadeobj, servico, colunas, _appEnvironment.WebRootPath);
 
-                TempData["error"] = "arquivo criado na pasta do sistema em:\n MVCControleRotas/wwwroot/file";
-                return RedirectToRoute(new { controller="Home",Action = "Index" });
+                return RedirectToRoute(new { controller = "Rotas", Action = "Download" });
             }
             return View();
+        }
+        public IActionResult Download()
+        {
+            return View();
+        }
+        public IActionResult DownloadFile()
+        {
+            var fileName = _filePath.Split("//").ToList();
+            var file = System.IO.File.ReadAllBytes(_filePath);
+            return File(file, "application/octet-stream", fileName.Last().ToString());
         }
     }
 }
