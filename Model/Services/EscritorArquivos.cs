@@ -14,10 +14,34 @@ namespace Model.Services
             string PathFile = path + "//file//Rota-"+DateTime.Now.ToString("dd - MM - yyyy")+".docx";
 
             //pegar qual coluna possui o nome definido
+            int colnumero = rotas[0].FindIndex(coluna => coluna == "NUMERO");
+            int colcomplemento = rotas[0].FindIndex(coluna => coluna == "COMPLEMENTO");
+            int colbairro = rotas[0].FindIndex(coluna => coluna == "BAIRRO");
             int colendereco = rotas[0].FindIndex(coluna => coluna == "ENDEREÇO");
             int colservico = rotas[0].FindIndex(coluna => coluna == "SERVIÇO");
             int colcidade = rotas[0].FindIndex(coluna => coluna == "CIDADE");
             int colcep = rotas[0].FindIndex(coluna => coluna == "CEP");
+
+            bool getend = false;
+            string aux="";
+            foreach(string indice in colunas)
+            {
+                if (int.Parse(indice) == colendereco)
+                {
+                    getend = true;
+                    aux = indice;
+                    
+                }
+            }
+            if(getend==true)
+            {
+                colunas.Remove(aux);
+                colunas.Add(aux);
+                colunas.Add(colnumero.ToString());
+                colunas.Add(colbairro.ToString());
+                colunas.Add(colcomplemento.ToString());
+                colunas.Add(colcep.ToString());
+            }
 
             //deixando apenas o que foi filtrado
             var numcount = rotas.Count;

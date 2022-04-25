@@ -28,7 +28,18 @@ namespace MVCControleRotas.Controllers
         public async Task<IActionResult> Index(IFormFile pathFile)
         {
             if (pathFile != null)
-                _rotaarquivo = LeitorArquivos.ReadExcel(pathFile);
+            {
+                if (pathFile.FileName.Contains(".xlsx"))
+                {
+                    if (pathFile != null)
+                        _rotaarquivo = LeitorArquivos.ReadExcel(pathFile);
+                }
+                else
+                {
+                    TempData["error"] = "Tipo de arquivo não compativel";
+                    return RedirectToRoute(new { controller = "Home", Action = "Index" });
+                }
+            }
             return View(_rotaarquivo[0]);
         }
 

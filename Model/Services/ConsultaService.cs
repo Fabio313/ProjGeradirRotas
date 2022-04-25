@@ -133,6 +133,14 @@ namespace Model.Services
                 return null;
             return usuario;
         }
+        public static async Task<List<Usuario>> GetUsuarios()
+        {
+            GetRestposta = await APIConnection.GetAsync("https://localhost:44333/api/Usuarios");
+            var usuarios = JsonConvert.DeserializeObject<List<Usuario>>(await GetRestposta.Content.ReadAsStringAsync());
+            if (usuarios == null)
+                return null;
+            return usuarios;
+        }
         public static void CreateUsuario(Usuario usuario)
         {
             APIConnection.PostAsJsonAsync("https://localhost:44333/api/Usuarios", usuario);

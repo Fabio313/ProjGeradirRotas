@@ -21,9 +21,16 @@ namespace MVCControleRotas.Controllers
             _context = context;
         }
 
-        public IActionResult TelaLogin()
+        public async Task<IActionResult> TelaLogin()
         {
-            return View();
+            if((await ConsultaService.GetUsuarios()).Count==0)
+            {
+                return RedirectToRoute(new { controller = "Usuarios", Action = "Create" });
+            }
+            else
+            {
+                return View();
+            }
         }
 
         public async Task<IActionResult> Login()
@@ -60,9 +67,9 @@ namespace MVCControleRotas.Controllers
         {
             if (ModelState.IsValid)
             {
-                _context.Add(usuario);
-                await _context.SaveChangesAsync();
-                return RedirectToAction(nameof(Index));
+                ConsultaService.CreateUsuario(usuario);
+                System.Threading.Thread.Sleep(TimeSpan.FromSeconds(3));
+                return RedirectToRoute(new { controller = "Usuarios", Action = "TelaLogin" });
             }
             return View(usuario);
         }
