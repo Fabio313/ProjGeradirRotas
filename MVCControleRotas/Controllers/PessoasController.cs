@@ -23,7 +23,14 @@ namespace MVCControleRotas.Controllers
         // GET: Pessoas
         public async Task<IActionResult> Index()
         {
-            return View(await ConsultaService.GetPessoas());
+            if (UsuariosController.logado == true)
+                return View(await ConsultaService.GetPessoas());
+            else
+            {
+                TempData["error"] = "Faça login para utilizar do sistema";
+                return RedirectToRoute(new { controller = "Usuarios", Action = "TelaLogin" });
+            }
+            
         }
 
         // GET: Pessoas/Details/5
@@ -46,7 +53,13 @@ namespace MVCControleRotas.Controllers
         // GET: Pessoas/Create
         public IActionResult Create()
         {
-            return View();
+            if (UsuariosController.logado == true)
+                return View();
+            else
+            {
+                TempData["error"] = "Faça login para utilizar do sistema";
+                return RedirectToRoute(new { controller = "Usuarios", Action = "TelaLogin" });
+            }
         }
 
         // POST: Pessoas/Create

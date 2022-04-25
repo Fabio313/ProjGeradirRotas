@@ -30,7 +30,13 @@ namespace MVCControleRotas.Controllers
         // GET: Equipes
         public async Task<IActionResult> Index()
         {
-            return View(await ConsultaService.GetEquipes());
+            if (UsuariosController.logado == true)
+                return View(await ConsultaService.GetEquipes());
+            else
+            {
+                TempData["error"] = "Faça login para utilizar do sistema";
+                return RedirectToRoute(new { controller = "Usuarios", Action = "TelaLogin" });
+            }
         }
 
         // GET: Equipes/Details/5
@@ -53,7 +59,13 @@ namespace MVCControleRotas.Controllers
         // GET: Equipes/Create
         public IActionResult Create()
         {
-            return View();
+            if (UsuariosController.logado == true)
+                return View();
+            else
+            {
+                TempData["error"] = "Faça login para utilizar do sistema";
+                return RedirectToRoute(new { controller = "Usuarios", Action = "TelaLogin" });
+            }
         }
 
         // POST: Equipes/Create
@@ -66,7 +78,10 @@ namespace MVCControleRotas.Controllers
             ViewBag.sucess = false;
             var teste = Request.Form["pessoa"].ToList();
             if (teste.Count == 0)
-                return View();
+            {
+                TempData["error"] = "A equipe deve ter ao menos 1 integrante";
+                return View(equipe);
+            }
             var cidade = Request.Form["cidadeEquipecreate"];
             equipe.Cidade = await ConsultaService.GetIdCidades(cidade);
             if (ModelState.IsValid)
@@ -120,8 +135,10 @@ namespace MVCControleRotas.Controllers
                 {
                     var pessoasAdd = Request.Form["pessoaAdd"].ToList();
                     if (pessoasAdd.Count == (await ConsultaService.GetPessoasTime(id)).Count)
+                    {
+                        TempData["error"] = "A equipe deve ter ao menos 1 integrante";
                         return View();
-
+                    }
                     var cidade = Request.Form["cidadeEquipe"];
                     equipe.Cidade = await ConsultaService.GetIdCidades(cidade);
 

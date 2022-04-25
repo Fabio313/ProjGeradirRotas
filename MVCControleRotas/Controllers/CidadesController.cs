@@ -23,7 +23,13 @@ namespace MVCControleRotas.Controllers
         // GET: Cidades
         public async Task<IActionResult> Index()
         {
-            return View(await ConsultaService.GetCidades());
+            if (UsuariosController.logado == true)
+                return View(await ConsultaService.GetCidades());
+            else
+            {
+                TempData["error"] = "Faça login para utilizar do sistema";
+                return RedirectToRoute(new { controller = "Usuarios", Action = "TelaLogin" });
+            }
         }
 
         // GET: Cidades/Details/5
@@ -46,7 +52,13 @@ namespace MVCControleRotas.Controllers
         // GET: Cidades/Create
         public IActionResult Create()
         {
-            return View();
+            if (UsuariosController.logado == true)
+                return View();
+            else
+            {
+                TempData["error"] = "Faça login para utilizar do sistema";
+                return RedirectToRoute(new { controller = "Usuarios", Action = "TelaLogin" });
+            }
         }
 
         // POST: Cidades/Create

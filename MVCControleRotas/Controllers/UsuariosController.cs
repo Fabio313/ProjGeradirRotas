@@ -23,7 +23,7 @@ namespace MVCControleRotas.Controllers
 
         public IActionResult TelaLogin()
         {
-            return PartialView();
+            return View();
         }
 
         public async Task<IActionResult> Login()
@@ -31,8 +31,11 @@ namespace MVCControleRotas.Controllers
             var login = Request.Form["userLogin"];
             var senha = Request.Form["userSenha"];
             var usuario = await ConsultaService.GetUsuario(login,senha);
-            if(usuario == null)
+            if (usuario == null)
+            {
+                TempData["error"] = "Usuario ou senha incorreto";
                 return RedirectToRoute(new { controller = "Usuarios", Action = "TelaLogin" });
+            }
             logado = true;
             return RedirectToRoute(new { controller = "Home", Action = "Index" });
         }

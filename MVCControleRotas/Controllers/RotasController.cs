@@ -9,6 +9,7 @@ using MVCControleRotas.Data;
 using Model;
 using Model.Services;
 using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Hosting;
 
 namespace MVCControleRotas.Controllers
 {
@@ -18,9 +19,10 @@ namespace MVCControleRotas.Controllers
         private static List<List<string>> _rotaarquivo;
         private readonly MVCControleRotasContext _context;
 
-        public RotasController(MVCControleRotasContext context)
+        IWebHostEnvironment _appEnvironment;
+        public RotasController(IWebHostEnvironment env)
         {
-            _context = context;
+            _appEnvironment = env;
         }
 
         // GET: Rotas
@@ -34,7 +36,13 @@ namespace MVCControleRotas.Controllers
         // GET: Rotas/Create
         public IActionResult Create()
         {
-            return View();
+            if (UsuariosController.logado == true)
+                return View();
+            else
+            {
+                TempData["error"] = "Faça login para utilizar do sistema";
+                return RedirectToRoute(new { controller = "Usuarios", Action = "TelaLogin" });
+            }
         }
 
         // POST: Rotas/Create
@@ -48,8 +56,22 @@ namespace MVCControleRotas.Controllers
             var cidade = Request.Form["cidadeRota"];
             var servico = Request.Form["servicoRota"];
             var equipes = Request.Form["equipesRota"].ToList();
-            if (colunas.Count == 0 || equipes.Count == 0 || servico == "none")
+            if (colunas.Count == 0)
+            {
+                TempData["error"] = "Nenhuma coluna foi selecionada";
                 return RedirectToRoute(new { controller = "Rotas", Action = "Index" });
+            }
+            if (equipes.Count == 0)
+            {
+                TempData["error"] = "Nenhuma equipe foi selecionada";
+                return RedirectToRoute(new { controller = "Rotas", Action = "Index" });
+            }
+
+            if (servico == "none")
+            {
+                TempData["error"] = "Nenhum serviço foi selecionado";
+                return RedirectToRoute(new { controller = "Rotas", Action = "Index" });
+            }
 
             if (ModelState.IsValid)
             {
@@ -59,8 +81,9 @@ namespace MVCControleRotas.Controllers
                     equipeslist.Add(await ConsultaService.GetIdEquipe(equipe));
                 }
                 var cidadeobj = await ConsultaService.GetIdCidades(cidade);
-                EscritorArquivos.EscreveDocx(equipeslist, _rotaarquivo, cidadeobj,servico,colunas);
+                EscritorArquivos.EscreveDocx(equipeslist, _rotaarquivo, cidadeobj,servico,colunas, _appEnvironment.WebRootPath);
 
+                TempData["error"] = "arquivo criado na pasta do sistema em:\n MVCControleRotas/wwwroot/file";
                 return RedirectToRoute(new { controller="Home",Action = "Index" });
             }
             return View();

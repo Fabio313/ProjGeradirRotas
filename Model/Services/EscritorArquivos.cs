@@ -9,8 +9,9 @@ namespace Model.Services
 {
     public class EscritorArquivos
     {
-        public static void EscreveDocx(List<Equipe> equipesRota, List<List<string>> rotas, Cidade cidade, string servico, List<string> colunas)
+        public static void EscreveDocx(List<Equipe> equipesRota, List<List<string>> rotas, Cidade cidade, string servico, List<string> colunas, string path)
         {
+            string PathFile = path + "//file//Rota-"+DateTime.Now.ToString("dd - MM - yyyy")+".docx";
 
             //pegar qual coluna possui o nome definido
             int colendereco = rotas[0].FindIndex(coluna => coluna == "ENDEREÇO");
@@ -38,7 +39,7 @@ namespace Model.Services
 
             var divisao = rotasordenadas.Count / equipesRota.Count;
             var divisaoresto = rotasordenadas.Count % equipesRota.Count;
-            using (StreamWriter sw = new($@"C:\Users\Fabio Z Ferrenha\Desktop\Atividades\GeradorDeRotas\Rota-{DateTime.Now.ToString("dd-MM-yyyy")}.docx"))
+            using (StreamWriter sw = new(PathFile))
             {
                 sw.WriteLine($"{servico} - {DateTime.Now.ToString("dd/MM/yyyy")}\n{cidade.Nome}\n\n");//Titulo
                 foreach (Equipe equipe in equipesRota)

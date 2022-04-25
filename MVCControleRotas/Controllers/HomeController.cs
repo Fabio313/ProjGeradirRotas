@@ -20,12 +20,24 @@ namespace MVCControleRotas.Controllers
 
         public IActionResult Index()
         {
-            return View();
+            if (UsuariosController.logado == true)
+                return View();
+            else
+            {
+                TempData["error"] = "Faça login para utilizar do sistema";
+                return RedirectToRoute(new { controller = "Usuarios", Action = "TelaLogin" });
+            }
         }
 
         public IActionResult Privacy()
         {
-            return View();
+            if (UsuariosController.logado == true)
+                return View();
+            else
+            {
+                TempData["error"] = "Faça login para utilizar do sistema";
+                return RedirectToRoute(new { controller = "Usuarios", Action = "TelaLogin" });
+            }
         }
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]

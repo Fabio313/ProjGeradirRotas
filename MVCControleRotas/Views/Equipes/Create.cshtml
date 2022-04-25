@@ -3,7 +3,6 @@
 @model Model.Equipe
 
 @{
-    var situacao= ViewBag.sucess;
     ViewData["Title"] = "Create";
 }
 
@@ -11,7 +10,7 @@
 
 <h4>Equipe</h4>
 <hr />
-<div class="row" onload="VerificaStatus(@situacao)">
+<div class="row">
     
     <div class="col-md-4">
         <form asp-action="Create">
@@ -51,14 +50,6 @@
     <a asp-action="Index">Back to List</a>
 </div>
 
-<script>
-    function VerificaStatus(status){
-        if(status == false)
-        {
-            alert("Precisa escolher ao menos uma pessoa")
-        }
-    }
-</script>
 
 @section Scripts {
     @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
