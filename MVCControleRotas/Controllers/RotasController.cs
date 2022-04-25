@@ -17,7 +17,6 @@ namespace MVCControleRotas.Controllers
     public class RotasController : Controller
     {
         private static List<List<string>> _rotaarquivo;
-        private readonly MVCControleRotasContext _context;
 
         IWebHostEnvironment _appEnvironment;
         public RotasController(IWebHostEnvironment env)
