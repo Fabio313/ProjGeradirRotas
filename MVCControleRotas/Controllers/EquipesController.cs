@@ -84,7 +84,7 @@ namespace MVCControleRotas.Controllers
             }
             var cidade = Request.Form["cidadeEquipecreate"];
             if(cidade == "none")
-                equipe = null;
+                equipe.Cidade = null;
             else
                 equipe.Cidade = await ConsultaService.GetIdCidades(cidade);
             if (ModelState.IsValid)
