@@ -33,6 +33,7 @@
             <div class="form-group">
 			    <label>Escolha uma cidade:</label>
 			    <select name="cidadeEquipecreate" id="cidadeEquipecreate">
+                    <option value="none">Nenhuma</option>
 					    @foreach (Cidade cidade in await ConsultaService.GetCidades())
 					    {
 					    <option value="@cidade.Id">@cidade.Nome</option>

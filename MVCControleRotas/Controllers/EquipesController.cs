@@ -83,7 +83,10 @@ namespace MVCControleRotas.Controllers
                 return View(equipe);
             }
             var cidade = Request.Form["cidadeEquipecreate"];
-            equipe.Cidade = await ConsultaService.GetIdCidades(cidade);
+            if(cidade == "none")
+                equipe = null;
+            else
+                equipe.Cidade = await ConsultaService.GetIdCidades(cidade);
             if (ModelState.IsValid)
             {
                 ConsultaService.CreateEquipe(equipe);
@@ -134,13 +137,17 @@ namespace MVCControleRotas.Controllers
                 try
                 {
                     var pessoasAdd = Request.Form["pessoaAdd"].ToList();
-                    if (pessoasAdd.Count == (await ConsultaService.GetPessoasTime(id)).Count)
+                    var pessoasDel = Request.Form["pessoaDel"].ToList();
+                    if ((pessoasDel.Count-pessoasAdd.Count) == (await ConsultaService.GetPessoasTime(id)).Count)
                     {
                         TempData["error"] = "A equipe deve ter ao menos 1 integrante";
-                        return View();
+                        return View(equipe);
                     }
                     var cidade = Request.Form["cidadeEquipe"];
-                    equipe.Cidade = await ConsultaService.GetIdCidades(cidade);
+                    if (cidade == "none")
+                        equipe.Cidade = null;
+                    else
+                        equipe.Cidade = await ConsultaService.GetIdCidades(cidade);
 
                     var equipebusca = await ConsultaService.GetIdEquipe(id);
                     ConsultaService.UpdateEquipes(id,equipe);
@@ -166,7 +173,6 @@ namespace MVCControleRotas.Controllers
                             });
                     }
 
-                    var pessoasDel = Request.Form["pessoaDel"].ToList();
                     foreach (var pessoa in pessoasDel)
                     {
                         var pessoaobj = await ConsultaService.GetIdPessoa(pessoa);
