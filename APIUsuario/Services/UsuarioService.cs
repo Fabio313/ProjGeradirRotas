@@ -22,6 +22,9 @@ namespace APIUsuario.Services
         public Usuario GetLogin(string login, string senha) =>
             _usuario.Find(usuario => usuario.Login == login && usuario.Senha == senha).FirstOrDefault();
 
+        public Usuario ForgetPassword(string login) =>
+            _usuario.Find(usuario=> usuario.Login == login).FirstOrDefault();
+
         public Usuario Get(string id) =>
             _usuario.Find<Usuario>(cliente => cliente.Id == id).FirstOrDefault();
 

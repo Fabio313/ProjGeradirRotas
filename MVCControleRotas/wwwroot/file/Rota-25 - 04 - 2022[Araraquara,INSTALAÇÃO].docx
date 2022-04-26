@@ -1,11 +1,10 @@
-INSTALAÇÃO - 25/04/2022
+﻿INSTALAÇÃO - 25/04/2022
 Araraquara
 
 
 Equipe: Time Beta
 Rotas:
 
-OS: 25814
 BASE: DAFBZ
 ENDEREÇO: Travessa das Iridáceas
 NUMERO: 161
@@ -14,7 +13,6 @@ COMPLEMENTO: A
 CEP: 04376-020
 
 
-OS: 11515
 BASE: RE5YZ
 ENDEREÇO: Rua Armando Brussolo
 NUMERO: 141
@@ -23,7 +21,6 @@ COMPLEMENTO: B
 CEP: 05048-050
 
 
-OS: 25576
 BASE: AERGE
 ENDEREÇO: Travessa Ângelo Betiol
 NUMERO: 150
@@ -32,11 +29,6 @@ COMPLEMENTO: terreo
 CEP: 09843-060
 
 
---------------------------------------------------------------
-Equipe: Equipe 2
-Rotas:
-
-OS: 43126
 BASE: NSFGZ
 ENDEREÇO: Rua Dois
 NUMERO: 166
@@ -45,7 +37,10 @@ COMPLEMENTO: casa
 CEP: 12043-613
 
 
-OS: 18999
+--------------------------------------------------------------
+Equipe: equipe 3
+Rotas:
+
 BASE: AFNM
 ENDEREÇO: Rua Francisco Vivona Júnior
 NUMERO: 191
@@ -54,7 +49,6 @@ COMPLEMENTO: casa
 CEP: 13063-500
 
 
-OS: 32858
 BASE: BSRTN
 ENDEREÇO: Avenida Ana Carolina de Barros Levy
 NUMERO: 132
@@ -63,11 +57,6 @@ COMPLEMENTO: fundos
 CEP: 13480-755
 
 
---------------------------------------------------------------
-Equipe: equipe 3
-Rotas:
-
-OS: 18988
 BASE: ABERB
 ENDEREÇO: Rua José João de Souza
 NUMERO: 161
@@ -76,7 +65,6 @@ COMPLEMENTO: fundos
 CEP: 17023-862
 
 
-OS: 13287
 BASE: ETYMN
 ENDEREÇO: Rua João Florêncio de Carvalho
 NUMERO: 191

@@ -47,6 +47,19 @@ namespace APIUsuario.Controllers
             return cliente;
         }
 
+        [HttpGet("EsqueceuSenha")]
+        public ActionResult<Usuario> EsqueceuSenha(string login)
+        {
+            var cliente = _pessoaService.ForgetPassword(login);
+
+            if (cliente == null)
+            {
+                return NotFound();
+            }
+
+            return cliente;
+        }
+
         [HttpPost]
         public IActionResult CreateAsync(Usuario pessoa)
         {

@@ -2,8 +2,10 @@
     ViewData["Title"] = "Home Page";
 }
 
+@using MVCControleRotas.Controllers
+
 <div class="text-center">
-    <h1 class="display-4">Bem Vindo</h1>
+    <h1 class="display-4">Bem Vindo @UsuariosController.userName</h1>
     <h5>Escolha o arquivo ".xlsx" que deseja ler</h5>
     <form method="post" enctype="multipart/form-data" asp-controller="Rotas" asp-action="Index">
         <input type="file" name="pathFile">

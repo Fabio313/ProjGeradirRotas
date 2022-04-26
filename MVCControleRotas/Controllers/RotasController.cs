@@ -96,8 +96,16 @@ namespace MVCControleRotas.Controllers
                     equipeslist.Add(await ConsultaService.GetIdEquipe(equipe));
                 }
                 var cidadeobj = await ConsultaService.GetIdCidades(cidade);
-                _filePath = EscritorArquivos.EscreveDocx(equipeslist, _rotaarquivo, cidadeobj, servico, colunas, _appEnvironment.WebRootPath);
-
+                try
+                {
+                    _filePath = EscritorArquivos.EscreveDocx(equipeslist, _rotaarquivo, cidadeobj, servico, colunas, _appEnvironment.WebRootPath);
+                }
+                catch
+                {
+                    TempData["error"] = "Algo ocorreu na criação do arquivo, verifique se esta faltando alguma coluna de importancia:" +
+                                        "SERVIÇO,CIDADE ou alguma coluna relacionada ao endereço: BAIRRO,NUMERO,COMPLEMENTO ou CEP";
+                    return RedirectToRoute(new { controller = "Home", Action = "Index" });
+                }
                 return RedirectToRoute(new { controller = "Rotas", Action = "Download" });
             }
             return View();

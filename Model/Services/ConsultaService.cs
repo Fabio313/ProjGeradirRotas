@@ -133,6 +133,14 @@ namespace Model.Services
                 return null;
             return usuario;
         }
+        public static async Task<Usuario> GetIdUsuario(string id)
+        {
+            GetRestposta = await APIConnection.GetAsync("https://localhost:44333/api/Usuarios/" + id);
+            var usuario = JsonConvert.DeserializeObject<Usuario>(await GetRestposta.Content.ReadAsStringAsync());
+            if (usuario.Login == null)
+                return null;
+            return usuario;
+        }
         public static async Task<List<Usuario>> GetUsuarios()
         {
             GetRestposta = await APIConnection.GetAsync("https://localhost:44333/api/Usuarios");
@@ -144,6 +152,22 @@ namespace Model.Services
         public static void CreateUsuario(Usuario usuario)
         {
             APIConnection.PostAsJsonAsync("https://localhost:44333/api/Usuarios", usuario);
+        }
+        public static void UpdateUsuario(string id, Usuario usuario)
+        {
+            APIConnection.PutAsJsonAsync("https://localhost:44333/api/Usuarios/" + id, usuario);
+        }
+        public static void DeleteUsuario(string id)
+        {
+            APIConnection.DeleteAsync("https://localhost:44333/api/Usuarios/" + id);
+        }
+        public static async Task<Usuario> EsqueceuSenha(string login)
+        {
+            GetRestposta = await APIConnection.GetAsync("https://localhost:44333/api/Usuarios/EsqueceuSenha?login="+login);
+            var usuario = JsonConvert.DeserializeObject<Usuario>(await GetRestposta.Content.ReadAsStringAsync());
+            if (usuario == null)
+                return null;
+            return usuario;
         }
     }
 }

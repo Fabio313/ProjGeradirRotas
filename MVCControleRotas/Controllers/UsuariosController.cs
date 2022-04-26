@@ -15,16 +15,31 @@ namespace MVCControleRotas.Controllers
     {
         private readonly MVCControleRotasContext _context;
         public static bool logado = false;
+        private static bool _logTemporario = false;
+        public static string userName;
 
         public UsuariosController(MVCControleRotasContext context)
         {
             _context = context;
         }
 
+        public async Task<IActionResult> Index()
+        {
+            if (UsuariosController.logado == true)
+                return View(await ConsultaService.GetUsuarios());
+            else
+            {
+                TempData["error"] = "Faça login para utilizar do sistema";
+                return RedirectToRoute(new { controller = "Usuarios", Action = "TelaLogin" });
+            }
+            
+        }
+
         public async Task<IActionResult> TelaLogin()
         {
             if((await ConsultaService.GetUsuarios()).Count==0)
             {
+                _logTemporario = true;
                 TempData["error"] = "Nenhum usuário ainda cadastrado por favor cadastre um";
                 return RedirectToRoute(new { controller = "Usuarios", Action = "Create" });
             }
@@ -33,7 +48,7 @@ namespace MVCControleRotas.Controllers
                 return View();
             }
         }
-
+        
         public async Task<IActionResult> Login()
         {
             var login = Request.Form["userLogin"];
@@ -41,17 +56,46 @@ namespace MVCControleRotas.Controllers
             var usuario = await ConsultaService.GetUsuario(login,senha);
             if (usuario == null)
             {
+
                 TempData["error"] = "Usuario ou senha incorreto";
                 return RedirectToRoute(new { controller = "Usuarios", Action = "TelaLogin" });
             }
             logado = true;
+            userName = login;
             return RedirectToRoute(new { controller = "Home", Action = "Index" });
+        }
+
+        public IActionResult Logout()
+        {
+            logado = false;
+            userName = "";
+            return RedirectToRoute(new { controller = "Usuarios", Action = "TelaLogin" });
+        }
+
+        public IActionResult EsqueceuSenha()
+        {
+            return View();
+        }
+
+        public async Task<IActionResult> EsqueceuSenhaReturn()
+        {
+            var login = Request.Form["LoginRequest"];
+            var user = await ConsultaService.EsqueceuSenha(login);
+            TempData["error"] = "Usuario: "+user.Login+"  \nSenha: "+user.Senha;
+            return RedirectToRoute(new { controller = "Usuarios", Action = "TelaLogin" }); ;
         }
 
         // GET: Usuarios/Create
         public IActionResult Create()
         {
-            return View();
+            if (UsuariosController.logado == true || _logTemporario == true)
+                return View();
+            else
+            {
+                TempData["error"] = "Faça login para utilizar do sistema";
+                return RedirectToRoute(new { controller = "Usuarios", Action = "TelaLogin" });
+            }
+            
         }
 
         // POST: Usuarios/Create
@@ -63,9 +107,15 @@ namespace MVCControleRotas.Controllers
         {
             if (ModelState.IsValid)
             {
+                _logTemporario = false;
                 ConsultaService.CreateUsuario(usuario);
-                System.Threading.Thread.Sleep(TimeSpan.FromSeconds(3));
-                return RedirectToRoute(new { controller = "Usuarios", Action = "TelaLogin" });
+                if (logado == false)
+                {
+                    System.Threading.Thread.Sleep(TimeSpan.FromSeconds(3));
+                    return RedirectToRoute(new { controller = "Usuarios", Action = "TelaLogin" });
+                }
+                else
+                    return RedirectToAction(nameof(Index));
             }
             return View(usuario);
         }
@@ -78,7 +128,7 @@ namespace MVCControleRotas.Controllers
                 return NotFound();
             }
 
-            var usuario = await _context.Usuario.FindAsync(id);
+            var usuario = await ConsultaService.GetIdUsuario(id);
             if (usuario == null)
             {
                 return NotFound();
@@ -102,8 +152,7 @@ namespace MVCControleRotas.Controllers
             {
                 try
                 {
-                    _context.Update(usuario);
-                    await _context.SaveChangesAsync();
+                    ConsultaService.UpdateUsuario(id,usuario);
                 }
                 catch (DbUpdateConcurrencyException)
                 {
@@ -129,8 +178,7 @@ namespace MVCControleRotas.Controllers
                 return NotFound();
             }
 
-            var usuario = await _context.Usuario
-                .FirstOrDefaultAsync(m => m.Id == id);
+            var usuario = await ConsultaService.GetIdUsuario(id);
             if (usuario == null)
             {
                 return NotFound();
@@ -144,9 +192,9 @@ namespace MVCControleRotas.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(string id)
         {
-            var usuario = await _context.Usuario.FindAsync(id);
-            _context.Usuario.Remove(usuario);
-            await _context.SaveChangesAsync();
+
+            ConsultaService.DeleteUsuario(id);
+
             return RedirectToAction(nameof(Index));
         }
 
