@@ -17,7 +17,9 @@ nesta lista nao aparecera o usuario que esta logado, pois não tem permissão de
 <br>
 após isso aparecera todas as opções disponiveis para configurar as rotas que deseja, após terminar clique no botao de criação
 <br>
-que te ira te levar a tela de download do arquivo gerado apenas precisando clicar no link.
+que te ira te levar a tela de download do arquivo gerado apenas precisando clicar no link;
+<br><br>
+-As cidades devem ser cadastradas para serem utilizadas no momento da criação da rota.
 <br><br><br>
 
 
