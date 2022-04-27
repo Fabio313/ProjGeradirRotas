@@ -9,7 +9,7 @@ por isso caso nao aparece o que foi alterado no momento recarregue a pagina em q
 <br>
 e após o cadastro ira para tela de login;
 <br><br>
--Quando cadastrado, na tela que contem as opções se ir em "usuarios" aparecera todos os usuarios cadastrados no sistema,
+-Quando logado, na tela que contem as opções se ir em "usuarios" aparecera todos os usuarios cadastrados no sistema,
 <br>
 nesta lista nao aparecera o usuario que esta logado, pois não tem permissão de alterar dados do usuario que esta sendo utilizado;
 <br><br>
