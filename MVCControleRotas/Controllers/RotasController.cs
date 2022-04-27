@@ -22,7 +22,9 @@ namespace MVCControleRotas.Controllers
 "NUMERO",
 "BAIRRO",
 "COMPLEMENTO",
-"CEP"};
+"CEP",
+"CIDADE",
+"SERVIÇO"};
 
         IWebHostEnvironment _appEnvironment;
         public RotasController(IWebHostEnvironment env)

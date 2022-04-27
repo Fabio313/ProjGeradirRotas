@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.IO;
 using System.Linq;
 using System.Text;
@@ -49,8 +50,10 @@ namespace Model.Services
             for (int i = 0; i < numcount; i++)
             {
                 rotas.Remove(rotas.Find(rota => rota[colcidade].ToLower()
-                                                                .Replace("ç", "c") != cidade.Nome.ToLower()
-                                                                                                 .Replace("ç", "c")));
+                                                               .Replace("ú", "u")
+                                                               .Replace("ã", "a") != cidade.Nome.ToLower()
+                                                                                                .Replace("ú", "u")
+                                                                                                .Replace("ã", "a")));
                 rotas.Remove(rotas.Find(rota => rota[colservico].ToLower()
                                                                 .Replace("ç", "c")
                                                                 .Replace("ã", "a") != servico.ToLower()
@@ -102,5 +105,10 @@ namespace Model.Services
             }
             return PathFile;
         }
+
+       /* private bool ComparaTexto(string texto1, string texto2)
+        {
+            return string.Compare(texto1,texto2,true, new CultureInfo("pt-BR"));
+        }*/
     }
 }

@@ -26,7 +26,15 @@ namespace MVCControleRotas.Controllers
         public async Task<IActionResult> Index()
         {
             if (UsuariosController.logado == true)
-                return View(await ConsultaService.GetUsuarios());
+            {
+                if (userName == "admin")
+                    return View(await ConsultaService.GetUsuarios());
+                else
+                {
+                    TempData["error"] = "Voce não tem autorização para esta fução";
+                    return RedirectToRoute(new { controller = "Home", Action = "Index" });
+                }
+            }
             else
             {
                 TempData["error"] = "Faça login para utilizar do sistema";
@@ -40,7 +48,8 @@ namespace MVCControleRotas.Controllers
             if((await ConsultaService.GetUsuarios()).Count==0)
             {
                 _logTemporario = true;
-                TempData["error"] = "Nenhum usuário ainda cadastrado por favor cadastre um";
+                userName = "admin";
+                TempData["error"] = "Nenhum usuário ainda cadastrado por favor cadastre um com o usuario obrigatoriamente 'admin'";
                 return RedirectToRoute(new { controller = "Usuarios", Action = "Create" });
             }
             else
@@ -88,7 +97,7 @@ namespace MVCControleRotas.Controllers
         // GET: Usuarios/Create
         public IActionResult Create()
         {
-            if (UsuariosController.logado == true || _logTemporario == true)
+            if ((UsuariosController.logado == true || _logTemporario == true) && userName=="admin")
                 return View();
             else
             {
@@ -108,6 +117,7 @@ namespace MVCControleRotas.Controllers
             if (ModelState.IsValid)
             {
                 _logTemporario = false;
+                userName = "";
                 ConsultaService.CreateUsuario(usuario);
                 if (logado == false)
                 {
