@@ -25,6 +25,4 @@ que te ira te levar a tela de download do arquivo gerado apenas precisando clica
 
 <h2>Não feito</h2>
 <br>
--O login por enquanto não é feito com nenhum tipo de autorização assim não tem autorizações para diferentes usuarios,
-<br>
-esta sendo controlado a utilização do sistema apenas se estiver logado porem todos os usuário tem completo acesso ao sistema.
+-O login por enquanto não é feito com jwt assim o usuario que tiver o nome de "admin" é o usuario com autoridade maxima
