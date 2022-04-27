@@ -5,9 +5,12 @@
 		error = TempData["error"].ToString();
 	}
 	System.Threading.Thread.Sleep(TimeSpan.FromSeconds(1));
+	var usuarioLogadoId = (await ConsultaService.EsqueceuSenha(UsuariosController.userName)).Id;
+	int i = 0;
 }
 
 @using MVCControleRotas.Controllers
+@using Model.Services
 
 <!DOCTYPE html>
 <html lang="en">
@@ -53,8 +56,10 @@
 						@if (UsuariosController.logado == true)
 						{
 							<li class="nav-item d-flex ">
-								<a class="nav-link text-dark">Usuario: @UsuariosController.userName</a>
+								<a class="nav-link text-dark">Usuario: @UsuariosController.userName</a>  
+								<a asp-action="Edit" asp-route-id="@usuarioLogadoId">Editar</a>
 							</li>
+							
 							<li class="nav-item d-flex ">
 								<a class="nav-link text-dark" asp-area="" asp-controller="Usuarios" asp-action="Logout">Logout</a>
 							</li>

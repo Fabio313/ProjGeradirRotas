@@ -116,12 +116,14 @@ namespace MVCControleRotas.Controllers
         {
             if (ModelState.IsValid)
             {
-                _logTemporario = false;
-                userName = "";
+                if (_logTemporario == true)
+                {
+                    _logTemporario = false;
+                    userName = "";
+                }
                 ConsultaService.CreateUsuario(usuario);
                 if (logado == false)
                 {
-                    System.Threading.Thread.Sleep(TimeSpan.FromSeconds(3));
                     return RedirectToRoute(new { controller = "Usuarios", Action = "TelaLogin" });
                 }
                 else
